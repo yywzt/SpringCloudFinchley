@@ -1,42 +1,39 @@
-package com.example.serviceribbon;
+package com.example.servicefeign;
 
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
 /**
  *  服务与服务的通讯是基于http restful的。
  *  Spring cloud有两种服务调用方式： 一种是ribbon+restTemplate，另一种是feign
- *  服务消费者（rest+ribbon）
+ *  服务消费者（Feign）
+ * @EnableFeignClients 注解开启Feign的功能
+ * @EnableHystrixDashboard 开启Hystrix Dashboard仪表盘
  *
- *  @EnableHystrix : 注解开启Hystrix
- *  @EnableHystrixDashboard : 开启Hystrix Dashboard仪表盘
+ * Feign
+ * 	Feign是一个声明式的伪Http客户端，它使得写Http客户端变得更简单。使用Feign，只需要创建一个接口并注解。
+ * 	它具有可插拔的注解特性，可使用Feign 注解和JAX-RS注解。Feign支持可插拔的编码器和解码器。
+ * 	Feign默认集成了Ribbon，并和Eureka结合，默认实现了负载均衡的效果。
+ * 	简而言之：
+ * 		Feign 采用的是基于接口的注解
+ * 		Feign 整合了ribbon，具有负载均衡的能力
+ * 		Feign 整合了Hystrix，具有熔断的能力
+ *
  * */
 @SpringBootApplication
 @EnableEurekaClient
-@EnableHystrix
+@EnableFeignClients
 @EnableHystrixDashboard
-public class ServiceRibbonApplication {
+public class ServiceFeignApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServiceRibbonApplication.class, args);
-	}
-
-	/**
-	 * @LoadBalanced 注解表示restTemplate开启负载均衡的功能
-	 * */
-	@Bean
-	@LoadBalanced
-	RestTemplate restTemplate(){
-		return new RestTemplate();
+		SpringApplication.run(ServiceFeignApplication.class, args);
 	}
 
 	/**

@@ -11,6 +11,7 @@
         <module>eureka-client</module>
         <module>eureka-server</module>
         <module>service-ribbon</module>
+        <module>service-feign</module>
     </modules>
     <packaging>pom</packaging>
 
