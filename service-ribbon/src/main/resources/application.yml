@@ -1,0 +1,11 @@
+server:
+  port: 18766
+
+spring:
+  application:
+    name: service-ribbon
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:18761/eureka/

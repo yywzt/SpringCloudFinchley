@@ -1,0 +1,11 @@
+server:
+  port: 18763
+
+spring:
+  application:
+    name: server-test
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:18761/eureka/
