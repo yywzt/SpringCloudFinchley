@@ -12,6 +12,7 @@
         <module>eureka-server</module>
         <module>service-ribbon</module>
         <module>service-feign</module>
+        <module>service-zuul</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -31,6 +32,7 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
+        <lombok.version>1.16.20</lombok.version>
     </properties>
 
     <!--微服务的监控，完成监控治理-->
@@ -44,6 +46,15 @@
             <artifactId>javax.interceptor-api</artifactId>
             <version>1.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
