@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          # \u914D\u7F6Egit\u4ED3\u5E93\u5730\u5740
+          uri: https://github.com/yywzt/SpringcloudConfig.git
+#          uri: https://github.com/forezp/SpringcloudConfig.git
+          # \u914D\u7F6E\u4ED3\u5E93\u8DEF\u5F84
+          search-paths: config
+#          search-paths: respo
+          # Git\u4ED3\u5E93\u4E3A\u516C\u5F00\u4ED3\u5E93\uFF0C\u53EF\u4EE5\u4E0D\u586B\u5199\u7528\u6237\u540D\u548C\u5BC6\u7801\uFF0C\u5982\u679C\u662F\u79C1\u6709\u4ED3\u5E93\u9700\u8981\u586B\u5199
+          # \u914D\u7F6E\u8BBF\u95EE\u4ED3\u5E93\u7684\u7528\u6237\u540D
+          username: #2507967396@qq.com
+          # \u914D\u7F6E\u8BBF\u95EE\u4ED3\u5E93\u7684\u7528\u6237\u5BC6\u7801
+          password:
+      # \u914D\u7F6E\u4ED3\u5E93\u7684\u5206\u652F
+      label: master
+
+server:
+  port: 8088
+
