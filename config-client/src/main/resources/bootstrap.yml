@@ -1,11 +1,12 @@
 spring:
   application:
-    name: config-client
+    name: config-client,zuul
   cloud:
     config:
+      # 指明远程仓库的分支
       label: master
       profile: dev
-      # \u914D\u7F6E\u670D\u52A1\u4E2D\u5FC3\u7F51\u5740
+      # 指明配置服务中心的网址
       uri: http://localhost:8088/
 
 server:
