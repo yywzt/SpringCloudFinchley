@@ -8,7 +8,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:18761/eureka/
+      defaultZone: http://root:root@localhost:18761/eureka/
 
 # feign自带断路器，但是默认是关闭的
 feign:

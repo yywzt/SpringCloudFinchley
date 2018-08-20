@@ -5,13 +5,21 @@ eureka:
   instance:
     hostname: localhost
   client:
+    # 表示是否将自己注册到Eureka Server，默认为true。由于当前这个应用就是Eureka Server，故而设为false
     register-with-eureka: false
+    # 表示是否从Eureka Server获取注册信息，默认为true。因为这是一个单点的Eureka Server，不需要同步其他的Eureka Server节点的数据，故而设为false。
     fetch-registry: false
     service-url:
-      defaultZone: http://${eureka.instance.hostname:localhost}:${server.port:18761}/eureka/
+      defaultZone: http://root:root@${eureka.instance.hostname:localhost}:${server.port:18761}/eureka/
   server:
     enable-self-preservation: false
+    # 清理间隔（单位毫秒，默认是60*1000）
+#    eviction-interval-timer-in-ms: 5000
 
 spring:
   application:
     name: eureka-server
+  security:
+    user:
+      name: root
+      password: root
