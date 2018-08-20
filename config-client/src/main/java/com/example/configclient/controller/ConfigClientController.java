@@ -17,7 +17,7 @@ public class ConfigClientController {
      *  原因：
      *      config-client的spring.application.name必须和自己的配置文件名相匹配。
      *      例如配置文件为：testConfig-test.properties
-     *      这个时候对应的config-cleint的spring.application.name=testConfig
+     *      这个时候对应的config-cleint的spring.application.name=testConfig,spring.cloud.config.profile=dev
      * */
     @Value("${test.username}")
     String username;
