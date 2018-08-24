@@ -15,6 +15,17 @@ spring:
       # 配置仓库的分支
       label: master
 
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 server:
   port: 8088
 
@@ -22,3 +33,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://root:root@localhost:18761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,bus-refresh

@@ -1,5 +1,6 @@
 package com.example.serviceribbon;
 
+import brave.sampler.Sampler;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -54,5 +55,10 @@ public class ServiceRibbonApplication {
 		registrationBean.addUrlMappings("/hystrix.stream");
 		registrationBean.setName("HystrixMetricsStreamServlet");
 		return registrationBean;
+	}
+
+	@Bean
+	public Sampler sampler(){
+		return Sampler.ALWAYS_SAMPLE;
 	}
 }

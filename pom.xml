@@ -15,6 +15,7 @@
         <module>service-zuul</module>
         <module>config-server</module>
         <module>config-client</module>
+        <module>server-zipkin</module>
     </modules>
     <packaging>pom</packaging>
 
