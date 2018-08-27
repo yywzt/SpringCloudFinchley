@@ -1,0 +1,19 @@
+server:
+  port: 8764
+
+spring:
+  application:
+    name: service-turbine
+
+eureka:
+  client:
+    service-url:
+#      defaultZone: http://root:root@localhost:18761/eureka/
+      defaultZone: http://localhost:18761/eureka/
+
+turbine:
+  app-config: service-feign,service-ribbon
+  aggregator:
+    cluster-config: default
+  cluster-name-expression: new String("default")
+  combine-host-port: true

@@ -1,43 +1,25 @@
-package com.example.serviceribbon;
+package com.example.serviceturbine;
 
-import brave.sampler.Sampler;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.netflix.turbine.EnableTurbine;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
 /**
- *  服务与服务的通讯是基于http restful的。
- *  Spring cloud有两种服务调用方式： 一种是ribbon+restTemplate，另一种是feign
- *  服务消费者（rest+ribbon）
- *
- *  @EnableHystrix : 注解开启Hystrix
- *  @EnableHystrixDashboard : 开启Hystrix Dashboard仪表盘
+ * @EnableTurbine : 开启turbine
  * */
 @SpringBootApplication
-@EnableEurekaClient
-@EnableHystrix
+@EnableTurbine
 @EnableHystrixDashboard
-public class ServiceRibbonApplication {
+@EnableHystrix
+public class ServiceTurbineApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServiceRibbonApplication.class, args);
-	}
-
-	/**
-	 * @LoadBalanced 注解表示restTemplate开启负载均衡的功能
-	 * */
-	@Bean
-	@LoadBalanced
-	RestTemplate restTemplate(){
-		return new RestTemplate();
+		SpringApplication.run(ServiceTurbineApplication.class, args);
 	}
 
 	/**
@@ -55,10 +37,5 @@ public class ServiceRibbonApplication {
 		registrationBean.addUrlMappings("/actuator/hystrix.stream");
 		registrationBean.setName("HystrixMetricsStreamServlet");
 		return registrationBean;
-	}
-
-	@Bean
-	public Sampler sampler(){
-		return Sampler.ALWAYS_SAMPLE;
 	}
 }

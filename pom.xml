@@ -16,6 +16,7 @@
         <module>config-server</module>
         <module>config-client</module>
         <module>server-zipkin</module>
+        <module>service-turbine</module>
     </modules>
     <packaging>pom</packaging>
 
