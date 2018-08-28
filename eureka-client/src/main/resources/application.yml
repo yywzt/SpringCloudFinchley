@@ -9,6 +9,9 @@ spring:
     base-url: http://localhost:9411
   sleuth:
     sampler:
+      # Sleuth 默认采样算法的实现是 Reservoir sampling，具体的实现类是 PercentageBasedSampler，
+      # 默认的采样比例为: 0.1，即 10%。我们可以通过 spring.sleuth.sampler.probability 来设置，
+      # 所设置的值介于 0 到 1 之间，1 则表示全部采集
       probability: 1.0
 
 eureka:
