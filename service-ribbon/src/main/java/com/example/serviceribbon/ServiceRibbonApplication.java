@@ -1,11 +1,9 @@
 package com.example.serviceribbon;
 
-import brave.sampler.Sampler;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
@@ -57,8 +55,4 @@ public class ServiceRibbonApplication {
 		return registrationBean;
 	}
 
-	@Bean
-	public Sampler sampler(){
-		return Sampler.ALWAYS_SAMPLE;
-	}
 }

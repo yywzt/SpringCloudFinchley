@@ -6,6 +6,9 @@ spring:
     name: service-feign
   zipkin:
     base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
 
 eureka:
   client:

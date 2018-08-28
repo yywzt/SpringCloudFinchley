@@ -1,6 +1,5 @@
 package com.example.servicefeign;
 
-import brave.sampler.Sampler;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -54,8 +53,4 @@ public class ServiceFeignApplication {
 		return registrationBean;
 	}
 
-	@Bean
-	public Sampler sampler(){
-		return Sampler.ALWAYS_SAMPLE;
-	}
 }
