@@ -18,4 +18,8 @@ eureka:
   client:
     service-url:
 #      defaultZone: http://root:root@localhost:18761/eureka/
-      defaultZone: http://localhost:18761/eureka/
+      defaultZone: http://peer1:18760/eureka/,http://peer2:18761/eureka/
+  instance:
+    # 不想使用主机名进行访问注册中心，也可以使用ip，但是需要先添加一条配置，该值默认false
+    prefer-ip-address: true
+debug: true

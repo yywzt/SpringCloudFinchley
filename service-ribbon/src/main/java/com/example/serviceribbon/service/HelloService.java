@@ -1,7 +1,12 @@
 package com.example.serviceribbon.service;
 
+import com.example.serviceribbon.ResponseData;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,11 +26,15 @@ public class HelloService {
     RestTemplate restTemplate;
 
     @HystrixCommand(fallbackMethod = "error")
-    public String hiSdervice(String name){
-        return restTemplate.getForObject("http://SERVICE-TEST/hi?name="+name,String.class);
+    public ResponseData hiSdervice(String name){
+        ResponseData responseData = restTemplate.getForObject("http://SERVICE-TEST/hi?name=" + name, ResponseData.class);
+        int code = responseData.getCode();
+        String msg = responseData.getMsg();
+        System.out.println("code: " + code + ",msg : " + msg);
+        return responseData;
     }
 
-    public String error(String name){
-        return new StringBuffer("hi,").append(name).append(",sorry,error!").toString();
+    public ResponseData error(String name){
+        return new ResponseData<>(500,new StringBuffer("hi,").append(name).append(",sorry,error!").toString());
     }
 }

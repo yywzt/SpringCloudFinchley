@@ -15,3 +15,5 @@ eureka:
     service-url:
 #      defaultZone: http://root:root@localhost:18761/eureka/
       defaultZone: http://localhost:18761/eureka/
+
+debug: true
