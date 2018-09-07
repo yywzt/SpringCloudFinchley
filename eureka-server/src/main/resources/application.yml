@@ -18,6 +18,7 @@ eureka:
 #      defaultZone: http://root:root@${eureka.instance.hostname:peer2}:${server.port:18761}/eureka/
       defaultZone: http://peer2:18761/eureka/
   server:
+     # 保护机制 默认开启
     enable-self-preservation: false
     # 清理间隔（单位毫秒，默认是60*1000）
 #    eviction-interval-timer-in-ms: 5000
@@ -47,6 +48,7 @@ eureka:
 #      defaultZone: http://root:root@${eureka.instance.hostname:peer1}:${server.port:18760}/eureka/
       defaultZone: http://peer1:18760/eureka/
   server:
+    # 保护机制 默认开启
     enable-self-preservation: false
     # 清理间隔（单位毫秒，默认是60*1000）
 #    eviction-interval-timer-in-ms: 5000
