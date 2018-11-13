@@ -19,7 +19,9 @@ public class HelloController {
 
     @GetMapping(value = "/hello")
     public String sayHi(@RequestParam(value = "name",required = false,defaultValue = "hehehe") String name) {
-        return serviceHiClient.sayHiFromClientOne( name );
+        String s = serviceHiClient.sayHiFromClientOne(name);
+        System.out.println(s);
+        return s;
     }
 
 }

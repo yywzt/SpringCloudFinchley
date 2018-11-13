@@ -23,6 +23,12 @@ public class IndexController {
     public Map<String, Object> home(@RequestParam(value = "name", defaultValue = "forezp",required = false) String name) {
         String s = "hi " + name + " ,i am from port:" + port;
         System.out.println(s);
+        try {
+            Thread.sleep(Long.valueOf(name));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("return");
         int code = 0;
         Map<String,Object> map = new HashMap<>();
         map.put("code",code);
