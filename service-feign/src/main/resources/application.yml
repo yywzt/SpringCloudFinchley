@@ -33,6 +33,21 @@ ribbon:
   MaxAutoRetries: 0     #对当前实例的重试次数，默认0
   MaxAutoRetriesNextServer: 1 #对切换实例的重试次数，默认1
 
+#支持的属性如下所示，应以<clientName>.ribbon.为前缀：
+#NFLoadBalancerClassName：应实施ILoadBalancer
+#
+#NFLoadBalancerRuleClassName：应实施IRule
+#
+#NFLoadBalancerPingClassName：应实施IPing
+#
+#NIWSServerListClassName：应实施ServerList
+#
+#NIWSServerListFilterClassName应实施ServerListFilter
+service-test:
+  ribbon:
+    # 自定义负载均衡策略
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
 hystrix:
   command:
     default:  #default全局有效，service id指定应用有效
