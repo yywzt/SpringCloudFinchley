@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/8/28 9:58
  * @describe
  */
-@Configuration
 public class RibbonConfig {
 
     /**
