@@ -1,6 +1,5 @@
 package com.example.configclient.controller;
 
-import com.example.configclient.config.Student;
 import com.example.configclient.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,11 +50,4 @@ public class ConfigClientController {
         redisUtil.set(key, value);
     }
 
-    @Autowired
-    Student student;
-
-    @RequestMapping("/getStudent")
-    public Student getStudent(){
-        return student;
-    }
 }
