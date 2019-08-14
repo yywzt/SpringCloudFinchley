@@ -21,7 +21,7 @@ spring:
         enabled: true
 
   rabbitmq:
-    host: localhost
+    host: 139.199.179.164
     port: 5672
     username: guest
     password: guest

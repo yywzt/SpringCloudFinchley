@@ -1,3 +1,6 @@
+server:
+  port: 8090
+
 spring:
   application:
     name: config-client,zuul
@@ -5,7 +8,7 @@ spring:
     config:
       # 指明远程仓库的分支
       label: master
-      profile: dev
+      profile: test
       # 指明配置服务中心的网址
 #      uri: http://localhost:8088/
       discovery:
@@ -13,13 +16,27 @@ spring:
         enabled: true
         #  配置中心的servieId，即服务名。
         service-id: config-service
-
-server:
-  port: 8090
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+  rabbitmq:
+    host: 139.199.179.164
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 
 eureka:
   client:
     service-url:
 #      defaultZone: http://root:root@localhost:18761/eureka/
       defaultZone: http://localhost:18761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,bus-refresh
+
 
