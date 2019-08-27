@@ -17,6 +17,7 @@
         <module>config-client</module>
         <module>server-zipkin</module>
         <module>service-turbine</module>
+        <module>springcloud-gateway-simple</module>
     </modules>
     <packaging>pom</packaging>
 
