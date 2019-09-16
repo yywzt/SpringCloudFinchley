@@ -8,10 +8,14 @@ spring:
           # 配置git仓库地址
           uri: https://github.com/yywzt/SpringcloudConfig.git
           # 配置仓库路径
-          search-paths: config
+          search-paths: '{application}'
           # Git仓库为公开仓库，可以不填写用户名和密码，如果是私有仓库需要填写
           username:
           password:
+          # 本地缓存地址
+#          basedir: ./configRepo/　　
+          # 强制拉取配置，解决手动修改本地缓存配置后，无法拉取最新配置的问题
+          force-pull: true
       # 配置仓库的分支
       label: master
 

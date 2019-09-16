@@ -1,10 +1,11 @@
 spring:
   application:
-    name: config-client,zuul
+    name: config-client
   cloud:
     config:
       # 指明远程仓库的分支
       label: master
+      name: config-client,zuul
       profile: dev
       # 指明配置服务中心的网址
 #      uri: http://localhost:8088/
@@ -13,9 +14,6 @@ spring:
         enabled: true
         #  配置中心的servieId，即服务名。
         service-id: config-service
-
-server:
-  port: 8090
 
 eureka:
   client:
