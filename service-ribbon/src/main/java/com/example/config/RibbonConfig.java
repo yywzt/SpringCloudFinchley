@@ -1,7 +1,8 @@
-package com.example.serviceribbon.config;
+package com.example.config;
 
 import com.example.serviceribbon.rule.MyRandomRule;
 import com.netflix.loadbalancer.IRule;
+import com.netflix.loadbalancer.RandomRule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/8/28 9:58
  * @describe
  */
-@Configuration
 public class RibbonConfig {
 
     /**
@@ -19,5 +19,10 @@ public class RibbonConfig {
 //    @Bean
     public IRule myRule(){
         return new MyRandomRule();
+    }
+
+    @Bean
+    public IRule randomRule(){
+        return new RandomRule();
     }
 }

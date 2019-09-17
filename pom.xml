@@ -17,6 +17,8 @@
         <module>config-client</module>
         <module>server-zipkin</module>
         <module>service-turbine</module>
+        <module>springcloud-gateway-simple</module>
+        <module>apollo-config</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -77,6 +79,12 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctrip.framework.apollo</groupId>
+                <artifactId>apollo-client</artifactId>
+                <version>1.1.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
