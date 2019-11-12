@@ -20,11 +20,18 @@ public class ConfigService {
     @ApolloConfig(value = "yyw.dev")
     private Config yyw_dev_config;
 
-    public String printConfig(){
+    public String printConfig() {
         log.info("config: {}", config);
         log.info("config getPropertyNames: {}", config.getPropertyNames());
         log.info("yyw_dev_config: {}", yyw_dev_config);
         log.info("yyw_dev_config getPropertyNames: {}", yyw_dev_config.getPropertyNames());
         return config.toString();
+    }
+
+    public Object getConfigByKey(String nameSpace, String key) {
+        Config config = com.ctrip.framework.apollo.ConfigService.getConfig(nameSpace);
+        String property = config.getProperty(key, "null");
+        log.info("{}-{}-value: {}", nameSpace, key, property);
+        return property;
     }
 }
