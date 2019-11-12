@@ -19,6 +19,7 @@
         <module>service-turbine</module>
         <module>springcloud-gateway-simple</module>
         <module>apollo-config</module>
+        <module>yyw-auth</module>
     </modules>
     <packaging>pom</packaging>
 
