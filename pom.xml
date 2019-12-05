@@ -19,7 +19,8 @@
         <module>service-turbine</module>
         <module>springcloud-gateway-simple</module>
         <module>apollo-config</module>
-        <module>yyw-auth</module>
+        <module>yyw-authserver</module>
+        <module>yyw-resourceserver</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -87,6 +88,28 @@
                 <artifactId>apollo-client</artifactId>
                 <version>1.1.0</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-jwt -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>1.0.11.RELEASE</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-resource-server -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+                <version>2.2.1.RELEASE</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-client -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-oauth2-client</artifactId>
+                <version>2.2.1.RELEASE</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
