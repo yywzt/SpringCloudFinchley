@@ -41,6 +41,8 @@
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
         <lombok.version>1.16.20</lombok.version>
+        <mybatis.version>2.0.1</mybatis.version>
+        <tk.mybatis.mapper.version>2.1.5</tk.mybatis.mapper.version>
     </properties>
 
     <!--微服务的监控，完成监控治理-->
@@ -108,6 +110,40 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-oauth2-client</artifactId>
                 <version>2.2.1.RELEASE</version>
+            </dependency>
+
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <!-- 通用mapper -->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${tk.mybatis.mapper.version}</version>
+            </dependency>
+
+            <!-- 分页插件:这里引入的内部pagehelper是5.1.4 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.2.5</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>27.0.1-jre</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.61</version>
             </dependency>
 
         </dependencies>

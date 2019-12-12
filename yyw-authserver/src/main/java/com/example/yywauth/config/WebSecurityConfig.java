@@ -1,5 +1,7 @@
 package com.example.yywauth.config;
 
+import com.example.yywauth.service.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -28,8 +30,8 @@ import org.springframework.util.DigestUtils;
 @EnableGlobalMethodSecurity(prePostEnabled = true)//开启注解
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private MyUserDetailsService userServices;
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,15 +40,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userServices);
-        auth.inMemoryAuthentication()
-                .withUser("user").password("e10adc3949ba59abbe56e057f20f883e").roles("USER");
+        auth.userDetailsService(myUserDetailsService);
+//        auth.inMemoryAuthentication()
+//                .withUser("user").password("e10adc3949ba59abbe56e057f20f883e").roles("USER");
     }
 
     /**
      * 自定义的passwordEncoder，使用md5加密
      * */
-    @Bean
+//    @Bean
     public PasswordEncoder passwordEncoder(){
         return new PasswordEncoder() {
             @Override
@@ -57,15 +59,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
                 //DigestUtils.md5DigestAsHex md5加密工具
-                return encodedPassword.equals(DigestUtils.md5DigestAsHex(rawPassword.toString().getBytes()));
+                return encodedPassword.equalsIgnoreCase(DigestUtils.md5DigestAsHex(rawPassword.toString().getBytes()));
             }
         };
     }
 
-//    @Bean
-//    public PasswordEncoder bcryptPasswordEncoder(){
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public PasswordEncoder bcryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     /**
      * 解决无法注入AuthenticationManager

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.yywauth.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.yywauth.modal.User">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="uname" jdbcType="VARCHAR" property="uname" />
+        <result column="passwd" jdbcType="VARCHAR" property="passwd" />
+        <result column="gentel" jdbcType="VARCHAR" property="gentel" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="creation_date" jdbcType="TIMESTAMP" property="creationDate" />
+        <result column="created_by" jdbcType="CHAR" property="createdBy" />
+        <result column="updation_date" jdbcType="TIMESTAMP" property="updationDate" />
+        <result column="updated_by" jdbcType="CHAR" property="updatedBy" />
+        <result column="enabled_flag" jdbcType="BIT" property="enabledFlag" />
+    </resultMap>
+    <resultMap id="ResultMap" type="com.example.yywauth.modal.User" extends="BaseResultMap">
+        <collection property="roles" ofType="com.example.yywauth.modal.Roles">
+            <id column="role_id" property="id"/>
+            <result column="role_name" property="roleName"/>
+            <result column="role_code" property="roleCode"/>
+        </collection>
+    </resultMap>
+
+    <select id="findUserInfByUname" parameterType="java.lang.String" resultMap="ResultMap">
+        SELECT
+          u.*,r.id AS role_id,r.role_name,r.role_code
+        FROM user_inf u
+        LEFT JOIN user_roles ur ON u.id=ur.user_id
+        LEFT JOIN roles r ON r.id=ur.role_id
+        where uname = #{uname}
+    </select>
+</mapper>
