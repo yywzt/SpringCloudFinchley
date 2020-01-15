@@ -29,6 +29,7 @@ spring:
     port: 5672
     username: guest
     password: guest
+    virtual-host: yyw-cloud
 
 server:
   port: 8088

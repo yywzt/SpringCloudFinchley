@@ -86,6 +86,7 @@
                     <embeddedLaunchScriptProperties>
                         <logFolder>/dev</logFolder>
                         <logFilename>null</logFilename>
+                        <inlinedConfScript>${project.basedir}/src/main/resources/inlined-conf.script</inlinedConfScript>
                     </embeddedLaunchScriptProperties>
                 </configuration>
             </plugin>
