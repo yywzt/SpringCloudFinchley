@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 @Data
 @Table(name = "user_inf")
-public class User implements Serializable,UserDetails {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,47 +42,4 @@ public class User implements Serializable,UserDetails {
     private String city;
 
     private Set<Roles> roles;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> auths = null;
-        Set<Roles> roles = getRoles();
-        if(roles==null || roles.isEmpty()){
-            return null;
-        }
-        auths = roles.stream().map(roles1 -> {
-            return new SimpleGrantedAuthority(roles1.getRoleCode());
-        }).collect(Collectors.toList());
-        return auths;
-    }
-
-    @Override
-    public String getPassword() {
-        return passwd;
-    }
-
-    @Override
-    public String getUsername() {
-        return uname;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
