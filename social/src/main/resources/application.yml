@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: social
+  cloud:
+    nacos:
+      discovery:
+        server-addr: centos001:8848
+server:
+  port: 20003
