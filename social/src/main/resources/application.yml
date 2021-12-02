@@ -5,5 +5,6 @@ spring:
     nacos:
       discovery:
         server-addr: centos001:8848
+        namespace: dev
 server:
   port: 20003

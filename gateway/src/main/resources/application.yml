@@ -8,6 +8,7 @@ spring:
     nacos:
       discovery:
         server-addr: centos001:8848
+        namespace: dev
     gateway:
       routes:
         - id: auth-center
