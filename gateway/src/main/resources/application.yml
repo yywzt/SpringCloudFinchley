@@ -1,0 +1,18 @@
+server:
+  port: 20002
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: centos001:8848
+    gateway:
+      routes:
+        - id: auth-center
+          uri: lb://auth-center-server/
+          predicates:
+            - Path=/auth/**,/gateway/auth/**
+          filters:
+            - RewritePath=(/gateway)?/auth/(?<path>.*), /$\{path}
