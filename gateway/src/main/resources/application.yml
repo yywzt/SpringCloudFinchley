@@ -1,6 +1,5 @@
 server:
   port: 20002
-
 spring:
   application:
     name: gateway
@@ -17,3 +16,9 @@ spring:
             - Path=/auth/**,/gateway/auth/**
           filters:
             - RewritePath=(/gateway)?/auth/(?<path>.*), /$\{path}
+        - id: social
+          uri: lb://social/
+          predicates:
+            - Path=/social/**,/gateway/social/**
+          filters:
+            - RewritePath=(/gateway)?/social/(?<path>.*), /$\{path}
