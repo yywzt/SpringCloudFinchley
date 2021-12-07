@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021/11/30 12:02
  */
 @RestController
-@RequestMapping("/index")
+@RequestMapping("/api/index")
 public class IndexController {
 
     @GetMapping
