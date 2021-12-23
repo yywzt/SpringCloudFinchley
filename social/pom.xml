@@ -36,12 +36,57 @@
         </dependency>
 
         <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.yyw</groupId>
             <artifactId>framework-api</artifactId>
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+            <activation>
+                <!--默认生效的配置组-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!--测试环境-->
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+        </profile>
+        <profile>
+            <!--演示环境-->
+            <id>uat</id>
+            <properties>
+                <env>uat</env>
+            </properties>
+        </profile>
+        <profile>
+            <!--生产环境-->
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
+        <finalName>${project.name}-${env}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -59,6 +104,11 @@
                 <version>2.3.7.RELEASE</version>
                 <configuration>
                     <executable>true</executable>
+                    <embeddedLaunchScriptProperties>
+                        <logFolder>/dev</logFolder>
+                        <logFilename>null</logFilename>
+                        <inlinedConfScript>${project.basedir}/src/main/resources/inlined-conf.script</inlinedConfScript>
+                    </embeddedLaunchScriptProperties>
                 </configuration>
                 <executions>
                     <execution>
@@ -69,6 +119,38 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--通过这个plugin填充配置文件中的占位符-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <!--springBoot支持默认的$符填充配置文件的value-->
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.jks</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.jks</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
+
 </project>

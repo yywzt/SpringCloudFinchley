@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.1.145:8848
+        namespace: dev
+        file-extension: yml
+        enabled: true
+        username: nacos
+        password: nacos
+  application:
+    name: social
