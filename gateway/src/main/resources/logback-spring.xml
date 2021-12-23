@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <!-- log_pattern -->
+    <property name="PATTERN" value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%thread]){faint} %clr(%logger{39}){cyan} %clr(:){faint} %m%n" />
+    <!-- test_file_path -->
+    <property name="TEST_FILE_NAME" value="/data/logs/gateway-test/logs.out" />
+    <property name="TEST_FILE_PATH" value="/data/logs/gateway-test/" />
+    <!-- uat_file_path -->
+    <property name="UAT_FILE_NAME" value="/data/logs/gateway-uat/logs.out" />
+    <property name="UAT_FILE_PATH" value="/data/logs/gateway-uat/" />
+    <!-- pro_file_path -->
+    <property name="PRO_FILE_NAME" value="/data/logs/gateway/logs.out" />
+    <property name="PRO_FILE_PATH" value="/data/logs/gateway/" />
+
+    <!-- pro_error_file_path -->
+    <property name="PRO_ERROR_FILE_NAME" value="/data/logs/gateway/errors.out" />
+    <property name="PRO_ERROR_FILE_PATH" value="/data/logs/gateway/" />
+
+    <!-- dev -->
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <root level="info">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <!-- test -->
+    <springProfile name="test">
+        <appender name="TEST-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${TEST_FILE_NAME}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${TEST_FILE_PATH}/gateway.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+                <MaxHistory>100</MaxHistory>
+            </rollingPolicy>
+
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>${PATTERN}</pattern>
+            </layout>
+        </appender>
+
+        <root level="info">
+            <appender-ref ref="TEST-FILE" />
+        </root>
+    </springProfile>
+
+
+    <!-- uat -->
+    <springProfile name="uat">
+        <appender name="UAT-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${UAT_FILE_NAME}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${UAT_FILE_PATH}/gateway.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+                <MaxHistory>100</MaxHistory>
+            </rollingPolicy>
+
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>${PATTERN}</pattern>
+            </layout>
+        </appender>
+
+        <root level="info">
+            <appender-ref ref="UAT-FILE" />
+        </root>
+    </springProfile>
+
+    <!-- prod -->
+    <springProfile name="prod">
+        <appender name="PROD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${PRO_FILE_NAME}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${PRO_FILE_PATH}/gateway.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+                <MaxHistory>100</MaxHistory>
+            </rollingPolicy>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>${PATTERN}</pattern>
+            </layout>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+        </appender>
+
+        <appender name="PROD_ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${PRO_ERROR_FILE_NAME}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${PRO_ERROR_FILE_PATH}/gateway.error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+                <MaxHistory>100</MaxHistory>
+            </rollingPolicy>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>${PATTERN}</pattern>
+            </layout>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+        </appender>
+
+        <root level="info">
+            <appender-ref ref="PROD_FILE" />
+        </root>
+    </springProfile>
+</configuration>
