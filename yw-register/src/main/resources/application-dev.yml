@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: yw-register
+
+server:
+  port: 10001
+  enableSelfPreservation: true
+
+eureka:
+  environment: dev
+  datacenter: dev
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname:  ${spring.cloud.client.ip-address}
+  client:
+    #是否需要向注册中心注册 eureka-server 不需要
+    register-with-eureka: false
+    #是否需要检索服务
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    # 实例注册表信息的缓存时长(单位：ms)
+    response-cache-update-interval-ms: 3000

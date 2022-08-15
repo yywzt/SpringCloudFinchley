@@ -1,0 +1,17 @@
+server:
+  port: 10003
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka/
+    # 获取注册实例间隔时间(单位：S)
+    registry-fetch-interval-seconds: 3
+  instance:
+    #设置服务名为ip:port
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+spring:
+  application:
+    name: yw-register
