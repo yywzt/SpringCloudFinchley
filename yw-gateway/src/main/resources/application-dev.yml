@@ -15,3 +15,14 @@ eureka:
 spring:
   application:
     name: yw-register
+  cloud:
+    gateway:
+      routes:
+      - id: service-user
+        uri: lb://service-user
+        predicates:
+          - Path=/service-user/**
+      - id: service-task
+        uri: lb://service-task
+        predicates:
+          - Path=/service-task/**
