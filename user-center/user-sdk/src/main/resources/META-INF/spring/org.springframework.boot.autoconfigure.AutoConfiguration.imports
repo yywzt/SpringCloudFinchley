@@ -3,3 +3,4 @@ com.yw.user.sdk.fallback.UserClientFallback
 com.yw.user.sdk.fallback.factory.UserClientFallbackFactory
 com.yw.user.sdk.fallback.UserAssetsClientFallback
 com.yw.user.sdk.fallback.factory.UserAssetsClientFallbackFactory
+com.yw.user.sdk.configuration.FeignConfiguration
