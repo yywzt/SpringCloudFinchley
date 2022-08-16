@@ -74,6 +74,11 @@
             <groupId>com.yw</groupId>
             <artifactId>user-sdk</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
