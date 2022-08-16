@@ -1,0 +1,22 @@
+server:
+  port: 0
+  servlet:
+    context-path: /service-user/
+
+# flyway 配置
+spring:
+  application:
+    name: service-user
+  datasource:
+    url: jdbc:mysql://yw_test:3306/user_center?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: Root123456.
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    # Hikari 连接池配置
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      max-lifetime: 60000
+      connection-test-query: SELECT 1
+      idle-timeout: 30000

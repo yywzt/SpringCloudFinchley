@@ -1,0 +1,8 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka/
+  instance:
+    #设置服务名为ip:port
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
