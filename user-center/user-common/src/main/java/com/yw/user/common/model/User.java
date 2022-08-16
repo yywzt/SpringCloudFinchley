@@ -1,5 +1,6 @@
 package com.yw.user.common.model;
 
+import com.yyw.api.enums.EnableStatusEnum;
 import lombok.Data;
 
 import javax.persistence.GeneratedValue;
@@ -27,4 +28,9 @@ public class User {
     private LocalDateTime createDate;
 
     private LocalDateTime modifyDate;
+
+    /**
+     * {@link EnableStatusEnum}
+     */
+    private Integer enableStatus;
 }

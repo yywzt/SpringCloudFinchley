@@ -1,0 +1,1 @@
+ALTER TABLE `user` ADD COLUMN `enable_status` tinyint NOT NULL DEFAULT 0 COMMENT '有效标识' AFTER `modify_date`;
