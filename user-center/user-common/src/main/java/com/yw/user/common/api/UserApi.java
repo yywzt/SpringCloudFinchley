@@ -1,6 +1,7 @@
 package com.yw.user.common.api;
 
 import com.yw.user.common.model.User;
+import com.yyw.api.vo.PageInfoVO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,5 +23,5 @@ public interface UserApi {
      * @return 用户集合
      */
     @GetMapping(value = "/user/list")
-    List<User> user(@PageableDefault Pageable pageable);
+    PageInfoVO<List<User>> user(@PageableDefault(page = 1) Pageable pageable);
 }

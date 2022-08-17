@@ -3,6 +3,7 @@ package com.yw.user.controller;
 import com.yw.user.common.api.UserApi;
 import com.yw.user.common.model.User;
 import com.yw.user.service.UserService;
+import com.yyw.api.vo.PageInfoVO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ public class UserController implements UserApi {
     private UserService userService;
 
     @Override
-    public List<User> user(Pageable pageable) {
+    public PageInfoVO<List<User>> user(Pageable pageable) {
         return userService.list(pageable);
     }
 }

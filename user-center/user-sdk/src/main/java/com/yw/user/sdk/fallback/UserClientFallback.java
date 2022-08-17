@@ -2,9 +2,9 @@ package com.yw.user.sdk.fallback;
 
 import com.yw.user.common.model.User;
 import com.yw.user.sdk.client.UserClient;
+import com.yyw.api.vo.PageInfoVO;
 import org.springframework.data.domain.Pageable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ import java.util.List;
 public class UserClientFallback implements UserClient {
 
     @Override
-    public List<User> user(Pageable pageable) {
-        return new ArrayList<>();
+    public PageInfoVO<List<User>> user(Pageable pageable) {
+        return PageInfoVO.empty(pageable.getPageNumber(), pageable.getPageSize());
     }
 }

@@ -1,10 +1,16 @@
 package com.yw.user.service;
 
-import com.google.common.collect.Lists;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import com.yw.user.common.model.User;
+import com.yw.user.mapper.UserMapper;
+import com.yw.user.util.PageUtil;
+import com.yyw.api.enums.EnableStatusEnum;
+import com.yyw.api.vo.PageInfoVO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -13,9 +19,13 @@ import java.util.List;
  */
 @Service
 public class UserService {
-    public List<User> list(Pageable pageable) {
-        User user = new User();
-        user.setId(1L);
-        return Lists.newArrayList(user);
+
+    @Resource
+    private UserMapper userMapper;
+
+    public PageInfoVO<List<User>> list(Pageable pageable) {
+        PageInfo<List<User>> userPageInfo = PageMethod.startPage(pageable.getPageNumber(), pageable.getPageSize())
+                .doSelectPageInfo(() -> userMapper.list(EnableStatusEnum.ENABLE_STATUS.getCode()));
+        return PageUtil.INSTANCE.convert(userPageInfo, pageable);
     }
 }
