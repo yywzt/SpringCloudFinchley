@@ -6,8 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-
 /**
  * 用户API
  *
@@ -23,5 +21,5 @@ public interface UserApi {
      * @return 用户集合
      */
     @GetMapping(value = "/user/list")
-    PageInfoVO<List<User>> user(@PageableDefault(page = 1) Pageable pageable);
+    PageInfoVO<User> user(@PageableDefault(page = 1) Pageable pageable);
 }

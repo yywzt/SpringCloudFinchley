@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author yanzhitao@xiaomalixing.com
@@ -21,7 +20,7 @@ public class UserController implements UserApi {
     private UserService userService;
 
     @Override
-    public PageInfoVO<List<User>> user(Pageable pageable) {
+    public PageInfoVO<User> user(Pageable pageable) {
         return userService.list(pageable);
     }
 }

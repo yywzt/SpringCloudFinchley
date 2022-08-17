@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author yanzhitao@xiaomalixing.com
@@ -23,8 +22,8 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
-    public PageInfoVO<List<User>> list(Pageable pageable) {
-        PageInfo<List<User>> userPageInfo = PageMethod.startPage(pageable.getPageNumber(), pageable.getPageSize())
+    public PageInfoVO<User> list(Pageable pageable) {
+        PageInfo<User> userPageInfo = PageMethod.startPage(pageable.getPageNumber(), pageable.getPageSize())
                 .doSelectPageInfo(() -> userMapper.list(EnableStatusEnum.ENABLE_STATUS.getCode()));
         return PageUtil.INSTANCE.convert(userPageInfo, pageable);
     }
