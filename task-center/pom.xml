@@ -22,9 +22,13 @@
     <properties>
         <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
-        <mybatis-spring-boot-starter-test.version>1.3.2</mybatis-spring-boot-starter-test.version>
+        <mybatis-spring-boot-starter-test.version>2.2.2</mybatis-spring-boot-starter-test.version>
+        <mapper-spring-boot-starter.version>4.2.1</mapper-spring-boot-starter.version>
+        <pagehelper-spring-boot-starter.version>1.4.3</pagehelper-spring-boot-starter.version>
         <framework-api.version>0.0.1-SNAPSHOT</framework-api.version>
         <user-sdk.version>0.0.1-SNAPSHOT</user-sdk.version>
+        <hutool.version>5.8.5</hutool.version>
+        <h2.version>1.4.197</h2.version>
     </properties>
 
     <dependencyManagement>
@@ -62,6 +66,45 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter-test</artifactId>
                 <version>${mybatis-spring-boot-starter-test.version}</version>
+            </dependency>
+
+            <!--通用mapper-->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mapper-spring-boot-starter.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter-test</artifactId>
+                <version>${mybatis-spring-boot-starter-test.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <scope>test</scope>
+                <version>${h2.version}</version>
             </dependency>
 
             <dependency>
