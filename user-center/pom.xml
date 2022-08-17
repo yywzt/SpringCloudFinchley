@@ -27,6 +27,7 @@
         <pagehelper-spring-boot-starter.version>1.4.3</pagehelper-spring-boot-starter.version>
         <framework-api.version>0.0.1-SNAPSHOT</framework-api.version>
         <hutool.version>5.8.5</hutool.version>
+        <h2.version>1.4.197</h2.version>
     </properties>
 
     <dependencyManagement>
@@ -90,6 +91,13 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-core</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <scope>test</scope>
+                <version>${h2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

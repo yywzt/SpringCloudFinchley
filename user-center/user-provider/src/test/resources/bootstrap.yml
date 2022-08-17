@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: service-user
+  profiles:
+    active: unit_test
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:user-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+    username:
+    password:
+    schema: classpath:db/schema.sql # 建表SQL语句
+    data: classpath:db/data.sql # 数据导入SQL语句
+    sql-script-encoding: utf-8
+    # Hikari 连接池配置
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+  redis:
+    host: localhost
+    port: 6479
+  flyway:
+    enabled: false
+mybatis:
+  mapper-locations: classpath:com/yw/user/mapper/*.xml
+  type-aliases-package: com.yw.user.model
+  #log打印和驼峰命名法
+  configuration:
+    map-underscore-to-camel-case: true
+    log-prefix: com.yw.user.mapper
+##tk.mybatis 通用mapper
+mapper:
+  mappers: tk.mybatis.mapper.common.Mapper
+  not-empty: false
+  identity: MYSQL
+#分页插件
+pagehelper:
+  auto-dialect: mysql
+  params: countSql
+  # 合理化参数配置 pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页
+  reasonable: true
+  support-methods-arguments: true
+# 远程调用
+feign:
+  hystrix:
+    enabled: true
