@@ -14,7 +14,6 @@ import org.mybatis.spring.boot.test.autoconfigure.AutoConfigureMybatis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -48,8 +47,7 @@ class UserControllerTest {
 
     @Test
     void test_user() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/list")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/user/list");
         Mockito.when(userService.list(any())).thenReturn(null);
         this.mockMvc.perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -57,7 +55,6 @@ class UserControllerTest {
 
 
         requestBuilder = MockMvcRequestBuilders.get("/user/list")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("page", "1")
                 .param("size", "10");
         Mockito.when(userService.list(any())).thenReturn(null);
@@ -67,7 +64,6 @@ class UserControllerTest {
 
 
         requestBuilder = MockMvcRequestBuilders.get("/user/list")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("page", "1")
                 .param("size", "10");
         PageInfoVO<User> pageInfoVO = new PageInfoVO<>(10, 2,1,1, Lists.newArrayList(mockUser(), mockUser()));
