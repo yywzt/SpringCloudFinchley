@@ -3,9 +3,6 @@ package com.yw.task.common.response;
 import com.yw.task.common.enums.TaskStatusEnum;
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.List;
 
 /**
@@ -17,8 +14,6 @@ import java.util.List;
 @Data
 public class TaskListResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
