@@ -119,12 +119,15 @@ class TaskControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/task/details");
 
         this.mockMvc.perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().json("{\"code\":\"task-10001\",\"message\":\"参数校验未通过: [任务ID不能为空, 用户ID不能为空]\"}", true));
     }
 
     @Test
     void test_details_result_not_exist() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/task/details/1");
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/task/details")
+                .param("taskId", "1")
+                .param("userId", "1");
 
         Mockito.when(taskService.details(any())).thenReturn(null);
         this.mockMvc.perform(requestBuilder)
@@ -134,7 +137,9 @@ class TaskControllerTest {
 
     @Test
     void test_details_result_exist() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/task/details/1");
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/task/details")
+                .param("taskId", "1")
+                .param("userId", "1");
 
         String jsonContent = "{\"code\":\"0\",\"message\":\"OK\",\"data\":{\"id\":2,\"title\":\"任务2\",\"level\":1,\"currentLevel\":1,\"taskStatus\":0,\"taskLevel\":[{\"title\":\"任务等级1\",\"level\":1,\"taskStatus\":0}]}}";
         Mockito.when(taskService.details(any())).thenReturn(mockTaskDetailsResponse());

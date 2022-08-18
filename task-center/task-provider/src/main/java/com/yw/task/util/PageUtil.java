@@ -18,6 +18,17 @@ public class PageUtil {
         if (Objects.isNull(pageInfo)) {
             return PageInfoVO.empty(pageable.getPageNumber(), pageable.getPageSize());
         }
+        return doConvert(pageInfo);
+    }
+
+    public <T> PageInfoVO<T> convert(PageInfo<T> pageInfo, int page, int size) {
+        if (Objects.isNull(pageInfo)) {
+            return PageInfoVO.empty(page, size);
+        }
+        return doConvert(pageInfo);
+    }
+
+    private <T> PageInfoVO<T> doConvert(PageInfo<T> pageInfo) {
         PageInfoVO<T> objectPageInfoVO = new PageInfoVO<>();
         objectPageInfoVO.setCurrentPage(pageInfo.getPageNum());
         objectPageInfoVO.setPageSize(pageInfo.getPageSize());

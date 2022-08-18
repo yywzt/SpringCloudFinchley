@@ -25,7 +25,8 @@ public enum TaskResponseCode implements AppCode {
     UNKNOWN_WORKER_ID("10102", "无法获取IdWorker标识"),
     INVALID_WORKER_ID("10103", "无效IdWorker标识，%d > %d"),
     PARAM_IS_NULL("task-10000", "参数为空"),
-    PARAM_CHECK_FAILURE("task-10001", "参数校验未通过: {0}");
+    PARAM_CHECK_FAILURE("task-10001", "参数校验未通过: {0}"),
+    TASK_NOT_EXIST("task-20000", "任务不存在");
 
     private String code;
     private String message;

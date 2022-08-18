@@ -21,6 +21,11 @@ public class TaskLevelResponse {
     private Integer level;
 
     /**
+     * 值
+     */
+    private Integer value;
+
+    /**
      * 任务等级对应状态
      * {@link TaskStatusEnum}
      */

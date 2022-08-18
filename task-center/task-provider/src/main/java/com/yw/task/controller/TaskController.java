@@ -1,12 +1,12 @@
 package com.yw.task.controller;
 
+import com.yw.task.common.request.TaskDetailsRequest;
 import com.yw.task.common.request.TaskListRequest;
 import com.yw.task.common.response.TaskDetailsResponse;
 import com.yw.task.common.response.TaskListResponse;
 import com.yw.task.service.TaskService;
 import com.yyw.api.vo.PageInfoVO;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,11 +37,11 @@ public class TaskController {
     /**
      * 任务详情
      *
-     * @param taskId 任务ID
+     * @param taskDetailsRequest 参数
      * @return 任务详情
      */
-    @GetMapping("/details/{taskId}")
-    public TaskDetailsResponse details(@PathVariable Long taskId) {
-        return taskService.details(taskId);
+    @GetMapping("/details")
+    public TaskDetailsResponse details(@Valid TaskDetailsRequest taskDetailsRequest) {
+        return taskService.details(taskDetailsRequest);
     }
 }
