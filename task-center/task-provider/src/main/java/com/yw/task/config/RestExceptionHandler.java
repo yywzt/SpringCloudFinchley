@@ -37,31 +37,35 @@ public class RestExceptionHandler {
      * @param e the e
      * @return ResultData
      */
-    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
     public ResponseData<Object> exception(Exception e) {
         log.error("全局异常信息", e);
         return ResponseData.failure(ResponseCode.UNKNOWN_EXCEPTION);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseData<Object> illegalArgumentExceptionHandler(HttpServletRequest request, Exception e) {
         log.error("IllegalArgumentExceptionHandler return!!!", e);
         return ResponseData.failure(ResponseCode.SELECT_PAGINATION_EXCEPTION);
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = IOException.class)
     public ResponseData<Object> ioExceptionErrorHandler(HttpServletRequest request, HttpServletResponse response, Exception e) {
         log.error("ioExceptionErrorHandler done!!!", e);
         return ResponseData.failure(ResponseCode.UNKNOWN_EXCEPTION);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
     public ResponseData<Object> missingServletRequestParameterErrorHandler(HttpServletRequest request, Exception e) {
         log.error("MissingServletRequestParameterErrorHandler: {}", e.getMessage());
         return ResponseData.failure(TaskResponseCode.PARAM_IS_NULL);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public ResponseData<Object> httpRequestMethodNotSupportedErrorHandler(HttpServletRequest request, Exception e) {
         log.error("httpRequestMethodNotSupportedErrorHandler: {}", e.getMessage());
@@ -71,7 +75,7 @@ public class RestExceptionHandler {
     /**
      * 参数校验未通过
      */
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     public ResponseData<Object> handleBindException(BindException e, HttpServletRequest request) {
         log.error("handleBindException return", e);
@@ -80,6 +84,7 @@ public class RestExceptionHandler {
         return ResponseData.failure(TaskResponseCode.PARAM_CHECK_FAILURE.getCode(), message);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseData<Object> handlerMethodArgumentNotValidException(MethodArgumentNotValidException e,
                                                                        HttpServletRequest request) {
