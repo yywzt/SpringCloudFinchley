@@ -19,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -74,7 +73,6 @@ class TaskControllerTest {
         String jsonContent = "{\"code\":\"0\",\"message\":\"OK\",\"data\":{\"pageSize\":10,\"totals\":2,\"totalPages\":1,\"currentPage\":1,\"list\":[{\"id\":1,\"title\":\"任务1\",\"level\":1,\"currentLevel\":1,\"taskStatus\":1,\"taskLevel\":[{\"title\":\"任务等级1\",\"level\":1,\"taskStatus\":1}]},{\"id\":2,\"title\":\"任务2\",\"level\":1,\"currentLevel\":1,\"taskStatus\":0,\"taskLevel\":[{\"title\":\"任务等级1\",\"level\":1,\"taskStatus\":0}]}]}}";
         Mockito.when(taskService.list(any())).thenReturn(mockTaskListResponsePageInfo());
         this.mockMvc.perform(requestBuilder)
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(jsonContent, true));
     }
@@ -121,7 +119,6 @@ class TaskControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/task/details");
 
         this.mockMvc.perform(requestBuilder)
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
@@ -131,7 +128,6 @@ class TaskControllerTest {
 
         Mockito.when(taskService.details(any())).thenReturn(null);
         this.mockMvc.perform(requestBuilder)
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(SUCCESS_RESULT, true));
     }
@@ -143,7 +139,6 @@ class TaskControllerTest {
         String jsonContent = "{\"code\":\"0\",\"message\":\"OK\",\"data\":{\"id\":2,\"title\":\"任务2\",\"level\":1,\"currentLevel\":1,\"taskStatus\":0,\"taskLevel\":[{\"title\":\"任务等级1\",\"level\":1,\"taskStatus\":0}]}}";
         Mockito.when(taskService.details(any())).thenReturn(mockTaskDetailsResponse());
         this.mockMvc.perform(requestBuilder)
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(jsonContent, true));
     }
