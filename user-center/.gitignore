@@ -33,3 +33,6 @@ build/
 .vscode/
 .DS_Store
 .mvn/
+/user-common/src/main/resources/rebel.xml
+/user-provider/src/main/resources/rebel.xml
+/user-sdk/src/main/resources/rebel.xml

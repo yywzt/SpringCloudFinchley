@@ -33,3 +33,6 @@ build/
 .vscode/
 .DS_Store
 .mvn/
+/task-common/src/main/resources/rebel.xml
+/task-provider/src/main/resources/rebel.xml
+/task-sdk/src/main/resources/rebel.xml
