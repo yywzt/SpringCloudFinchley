@@ -20,6 +20,8 @@ public class TaskLevel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long taskId;
+
     /**
      * 任务等级名称
      */

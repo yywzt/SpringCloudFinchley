@@ -2,12 +2,10 @@ package com.yw.task.service;
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
-import com.google.common.collect.Lists;
 import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.TaskLevelDTO;
 import com.yw.task.common.dto.user.UserTaskDTO;
 import com.yw.task.common.enums.TaskResponseCode;
-import com.yw.task.common.enums.TaskStatusEnum;
 import com.yw.task.common.model.Task;
 import com.yw.task.common.request.TaskDetailsRequest;
 import com.yw.task.common.request.TaskListRequest;
@@ -46,8 +44,9 @@ public class TaskService {
     private TaskLevelService taskLevelService;
 
     public TaskDTO get(Long id) {
-        Optional<Task> taskOptional = taskMapper.get(id, EnableStatusEnum.ENABLE_STATUS);
-        Task task = taskOptional.orElseThrow(() -> new BusinessException(TaskResponseCode.TASK_NOT_EXIST));
+        Optional<Task> taskOptional = taskMapper.get(id, EnableStatusEnum.ENABLE_STATUS.getCode());
+        Task task = taskOptional
+                .orElseThrow(() -> new BusinessException(TaskResponseCode.TASK_NOT_EXIST));
         return TaskStruct.INSTANCE.convert(task);
     }
 
@@ -68,15 +67,15 @@ public class TaskService {
             return Collections.emptyList();
         }
         List<TaskDTO> taskDTOList = TaskStruct.INSTANCE.convert(taskList);
-        return taskDTOList
-                .stream()
-                .map(task -> convert(userId, task)).collect(Collectors.toList());
+        return taskDTOList.stream().map(task -> convert(userId, task)).collect(Collectors.toList());
     }
 
     private TaskListResponse convert(@NonNull Long userId, TaskDTO task) {
         List<TaskLevelDTO> taskLevelList = taskLevelService.list(task.getId());
         UserTaskDTO userTaskDTO = userTaskService.currentTaskLevel(userId, task);
-        List<TaskLevelResponse> taskLevelResponses = convertTaskLevel(taskLevelList, userTaskDTO);
+        List<TaskLevelResponse> taskLevelResponses = taskLevelList.stream()
+                .map(taskLevel -> new TaskLevelResponse(taskLevel, userTaskDTO))
+                .collect(Collectors.toList());
 
         TaskListResponse taskListResponse = new TaskListResponse();
         taskListResponse.setId(task.getId());
@@ -84,34 +83,9 @@ public class TaskService {
         taskListResponse.setLevel(task.getLevel());
         taskListResponse.setCurrentLevel(userTaskDTO.getCurrentLevel());
         taskListResponse.setTaskStatus(userTaskDTO.getTaskStatus().getStatus());
+        taskListResponse.setTaskStatusName(userTaskDTO.getTaskStatus().getName());
         taskListResponse.setTaskLevel(taskLevelResponses);
         return taskListResponse;
-    }
-
-    private List<TaskLevelResponse> convertTaskLevel(List<TaskLevelDTO> taskLevelList, UserTaskDTO userTaskDTO) {
-        List<TaskLevelResponse> taskLevelResponses = Lists.newArrayList();
-        for (TaskLevelDTO taskLevel : taskLevelList) {
-            TaskLevelResponse taskLevelResponse = new TaskLevelResponse();
-            taskLevelResponse.setTitle(taskLevel.getTitle());
-            taskLevelResponse.setLevel(taskLevel.getLevel());
-            taskLevelResponse.setValue(taskLevel.getTriggerValue());
-            taskLevelResponse.setTaskStatus(buildTaskLevelTaskStatus(taskLevel, userTaskDTO).getStatus());
-            taskLevelResponses.add(taskLevelResponse);
-        }
-        return taskLevelResponses;
-    }
-
-    private TaskStatusEnum buildTaskLevelTaskStatus(TaskLevelDTO taskLevel, UserTaskDTO userTaskDTO) {
-        if (taskLevel.getLevel().equals(userTaskDTO.getCurrentLevel())) {
-            return userTaskDTO.getTaskStatus();
-        }
-        if (taskLevel.getLevel() < userTaskDTO.getCurrentLevel()) {
-            return TaskStatusEnum.FINISHED;
-        }
-        if (taskLevel.getLevel() > userTaskDTO.getCurrentLevel()) {
-            return TaskStatusEnum.NO_STARTED;
-        }
-        return TaskStatusEnum.UN_FINISHED;
     }
 
     public TaskDetailsResponse details(TaskDetailsRequest taskDetailsRequest) {

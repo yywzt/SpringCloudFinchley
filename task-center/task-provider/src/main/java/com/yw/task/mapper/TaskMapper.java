@@ -1,7 +1,6 @@
 package com.yw.task.mapper;
 
 import com.yw.task.common.model.Task;
-import com.yyw.api.enums.EnableStatusEnum;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
@@ -19,5 +18,5 @@ public interface TaskMapper extends Mapper<Task> {
     List<Task> list(@Param("classificationId") Long classificationId, @Param("enableStatus") Integer enableStatus);
 
     @Select(value = "select * from task where id = #{id} and enable_status = #{enableStatus}")
-    Optional<Task> get(@Param("id") Long id, @Param("enableStatus") EnableStatusEnum enableStatus);
+    Optional<Task> get(@Param("id") Long id, @Param("enableStatus") Integer enableStatus);
 }

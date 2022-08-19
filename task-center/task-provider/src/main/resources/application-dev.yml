@@ -44,3 +44,22 @@ spring:
     schemas: task_center
     # 执行迁移时是否自动调用验证   当你的 版本不符合逻辑 比如 你先执行了 DML 而没有 对应的DDL 会抛出异常
     validate-on-migrate: true
+mybatis:
+  mapper-locations: classpath:com/yw/task/*.xml
+  type-aliases-package: com.yw.task.model
+  #log打印和驼峰命名法
+  configuration:
+    map-underscore-to-camel-case: true
+    log-prefix: com.yw.task.mapper.
+##tk.mybatis 通用mapper
+mapper:
+  mappers: tk.mybatis.mapper.common.Mapper
+  not-empty: false
+  identity: MYSQL
+#分页插件
+pagehelper:
+  auto-dialect: mysql
+  params: countSql
+  # 合理化参数配置 pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页
+  reasonable: false
+  support-methods-arguments: true

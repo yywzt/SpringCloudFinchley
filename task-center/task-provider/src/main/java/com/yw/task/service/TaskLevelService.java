@@ -2,7 +2,7 @@ package com.yw.task.service;
 
 import com.yw.task.common.dto.TaskLevelDTO;
 import com.yw.task.common.model.TaskLevel;
-import com.yw.task.mapper.TasklevelMapper;
+import com.yw.task.mapper.TaskLevelMapper;
 import com.yw.task.struct.TaskLevelStruct;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class TaskLevelService {
 
     @Resource
-    private TasklevelMapper tasklevelMapper;
+    private TaskLevelMapper tasklevelMapper;
 
     public List<TaskLevelDTO> list(Long taskId) {
         List<TaskLevel> taskLevelList = tasklevelMapper.list(taskId);

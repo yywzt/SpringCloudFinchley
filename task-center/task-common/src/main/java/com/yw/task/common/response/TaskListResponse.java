@@ -37,6 +37,8 @@ public class TaskListResponse {
      */
     private Integer taskStatus;
 
+    private String taskStatusName;
+
     /**
      * 任务等级
      */
