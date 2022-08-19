@@ -2,6 +2,7 @@ package com.yw.task.config;
 
 import com.google.common.collect.Lists;
 import com.yw.task.common.enums.TaskResponseCode;
+import com.yyw.api.exception.BusinessException;
 import com.yyw.api.model.ResponseCode;
 import com.yyw.api.model.ResponseData;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,13 @@ public class RestExceptionHandler {
     public ResponseData<Object> exception(Exception e) {
         log.error("全局异常信息", e);
         return ResponseData.failure(ResponseCode.UNKNOWN_EXCEPTION);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseData<Object> businessException(Exception e) {
+        log.error("全局异常信息", e);
+        BusinessException businessException = (BusinessException) e;
+        return ResponseData.failure(businessException.getCode(), businessException.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
