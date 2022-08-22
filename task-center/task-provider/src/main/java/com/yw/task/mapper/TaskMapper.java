@@ -19,4 +19,7 @@ public interface TaskMapper extends Mapper<Task> {
 
     @Select(value = "select * from task where id = #{id} and enable_status = #{enableStatus}")
     Optional<Task> get(@Param("id") Long id, @Param("enableStatus") Integer enableStatus);
+
+    @Select(value = "select * from task where event_id = #{eventId} and enable_status = #{enableStatus}")
+    Optional<Task> findByEventId(@Param("eventId") String eventId, @Param("enableStatus") Integer enableStatus);
 }

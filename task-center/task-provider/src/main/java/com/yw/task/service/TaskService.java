@@ -56,6 +56,13 @@ public class TaskService {
         return PageUtil.INSTANCE.convert(taskPageInfo, page, size);
     }
 
+    public TaskDTO getByEventId(String eventId) {
+        Optional<Task> taskOptional = taskMapper.findByEventId(eventId, EnableStatusEnum.ENABLE_STATUS.getCode());
+        Task task = taskOptional
+                .orElseThrow(() -> new BusinessException(TaskResponseCode.TASK_NOT_EXIST));
+        return TaskStruct.INSTANCE.convert(task);
+    }
+
     public PageInfoVO<TaskListResponse> list(TaskListRequest taskListRequest) {
         PageInfoVO<Task> taskPageInfo = page(taskListRequest.getClassificationId(), taskListRequest.getPage(), taskListRequest.getSize());
         List<TaskListResponse> taskListResponses = buildTaskListResponse(taskListRequest.getUserId(), taskPageInfo.getList());
@@ -72,7 +79,7 @@ public class TaskService {
 
     private TaskListResponse convert(@NonNull Long userId, TaskDTO task) {
         List<TaskLevelDTO> taskLevelList = taskLevelService.list(task.getId());
-        UserTaskDTO userTaskDTO = userTaskService.currentTaskLevel(userId, task);
+        UserTaskDTO userTaskDTO = userTaskService.get(userId, task.getId());
         List<TaskLevelResponse> taskLevelResponses = taskLevelList.stream()
                 .map(taskLevel -> new TaskLevelResponse(taskLevel, userTaskDTO))
                 .collect(Collectors.toList());

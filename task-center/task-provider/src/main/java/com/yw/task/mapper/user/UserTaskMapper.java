@@ -13,4 +13,6 @@ public interface UserTaskMapper extends Mapper<UserTask> {
 
     @Select(value = "select * from user_task where user_id = #{userId} and task_id = #{taskId} limit 1")
     UserTask get(@Param("userId") Long userId, @Param("taskId") Long taskId);
+
+    void addOrUpdate(@Param("userTask") UserTask userTask);
 }

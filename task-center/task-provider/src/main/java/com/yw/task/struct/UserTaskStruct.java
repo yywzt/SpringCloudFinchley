@@ -20,6 +20,10 @@ public interface UserTaskStruct {
     @Mapping(source = "status", target = "taskStatus")
     UserTaskDTO convert(UserTask userTask);
 
+    @Mapping(source = "currentLevel", target = "level")
+    @Mapping(source = "taskStatus.status", target = "status")
+    UserTask convert(UserTaskDTO userTaskDTO);
+
     default TaskStatusEnum customConvert(Integer status) {
         return TaskStatusEnum.findByStatus(status);
     }

@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @Data
 public class UserTaskDTO {
 
+    private Long id;
+
     private Long taskId;
 
     private Long userId;

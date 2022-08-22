@@ -1,5 +1,9 @@
 package com.yw.task.common.enums;
 
+import com.yyw.api.exception.BusinessException;
+
+import java.util.Arrays;
+
 /**
  * 任务周期类型
  *
@@ -17,6 +21,13 @@ public enum CycleTypeEnum {
     private final Integer code;
 
     private final String name;
+
+    public static CycleTypeEnum findByCode(Integer code) {
+        return Arrays.stream(CycleTypeEnum.values())
+                .filter(cycleTypeEnum -> cycleTypeEnum.getCode().equals(code))
+                .findFirst()
+                .orElseThrow(() -> new BusinessException(TaskResponseCode.INCORRECT_CYCLE_TYPE));
+    }
 
     CycleTypeEnum(Integer code, String name) {
         this.code = code;

@@ -66,7 +66,7 @@ class TaskServiceTest {
         assertEquals(task.getId(), taskDTO.getId());
         assertEquals(task.getTitle(), taskDTO.getTitle());
         assertEquals(task.getLevel(), taskDTO.getLevel());
-        assertEquals(task.getCycleType(), taskDTO.getCycleType());
+        assertEquals(task.getCycleType(), taskDTO.getCycleType().getCode());
         assertEquals(task.getEventId(), taskDTO.getEventId());
     }
 
@@ -103,13 +103,4 @@ class TaskServiceTest {
         assertNotNull(taskPageInfo.getList());
     }
 
-    @Test
-    void list() {
-//        TaskListRequest taskListRequest = new TaskListRequest();
-//        System.out.println(taskService.list(taskListRequest));
-    }
-
-    @Test
-    void details() {
-    }
 }

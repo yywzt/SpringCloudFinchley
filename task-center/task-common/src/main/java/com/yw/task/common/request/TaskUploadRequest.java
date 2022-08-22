@@ -26,7 +26,7 @@ public class TaskUploadRequest {
     /**
      * 数值
      */
-    private Integer triggerValue;
+    private Integer triggerValue = 1;
 
 
 }

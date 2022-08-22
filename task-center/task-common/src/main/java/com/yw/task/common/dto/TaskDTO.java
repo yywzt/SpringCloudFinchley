@@ -24,9 +24,8 @@ public class TaskDTO {
 
     /**
      * 周期类型
-     * {@link CycleTypeEnum}
      */
-    private Integer cycleType;
+    private CycleTypeEnum cycleType;
 
     /**
      * 事件标识id

@@ -1,6 +1,5 @@
 package com.yw.task.service.user;
 
-import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.user.UserTaskDTO;
 import com.yw.task.common.enums.TaskStatusEnum;
 import com.yw.task.common.model.user.UserTask;
@@ -23,17 +22,19 @@ public class UserTaskService {
     @Resource
     private UserTaskMapper userTaskMapper;
 
-    public UserTaskDTO get(Long userId, Long taskId) {
+    /**
+     * 获取用户任务进度，如从未做过任务，则返回初始任务进度
+     *
+     * @param userId 用户ID
+     * @param taskId 任务ID
+     * @return 用户任务
+     */
+    public UserTaskDTO get(Long userId, @NonNull Long taskId) {
         UserTask userTask = userTaskMapper.get(userId, taskId);
-        return UserTaskStruct.INSTANCE.convert(userTask);
-    }
-
-    public UserTaskDTO currentTaskLevel(Long userId, @NonNull TaskDTO task) {
-        UserTaskDTO userTaskDTO = get(userId, task.getId());
-        if (Objects.isNull(userTaskDTO)) {
-            return buildUserTaskDTO(userId, task.getId());
+        if (Objects.isNull(userTask)) {
+            return buildUserTaskDTO(userId, taskId);
         }
-        return userTaskDTO;
+        return UserTaskStruct.INSTANCE.convert(userTask);
     }
 
     private UserTaskDTO buildUserTaskDTO(Long userId, Long taskId) {
@@ -44,6 +45,15 @@ public class UserTaskService {
         userTaskDTO.setTriggerValue(0);
         userTaskDTO.setTaskStatus(TaskStatusEnum.UN_FINISHED);
         userTaskDTO.setCreateDate(LocalDateTime.now());
+        userTaskDTO.setModifyDate(LocalDateTime.now());
         return userTaskDTO;
+    }
+
+    public void addOrUpdate(UserTaskDTO userTaskDTO) {
+        if (Objects.isNull(userTaskDTO)) {
+            return;
+        }
+        UserTask userTask = UserTaskStruct.INSTANCE.convert(userTaskDTO);
+        userTaskMapper.addOrUpdate(userTask);
     }
 }
