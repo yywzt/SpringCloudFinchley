@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author yanzhitao@xiaomalixing.com
@@ -47,7 +47,15 @@ public class TaskCalculationHandle {
      */
     private final LocalDateTime currentDate;
 
+    /**
+     * 用户当前任务等级
+     */
     private final Integer currentLevel;
+
+    /**
+     * 取待完成的最高任务等级
+     */
+    private TaskLevelDTO targetFinishedTaskLevel;
 
     private final TaskCalculationHandleResult result;
 
@@ -64,6 +72,7 @@ public class TaskCalculationHandle {
         resetUserTask();
         this.currentLevel = userTask.getCurrentLevel();
         this.result = TaskCalculationHandleResult.init();
+        this.result.setUserTask(userTask);
     }
 
     public void handle() {
@@ -71,6 +80,7 @@ public class TaskCalculationHandle {
             return;
         }
         if (isFinished()) {
+            this.result.setFinished(true);
             finished();
             return;
         }
@@ -107,15 +117,18 @@ public class TaskCalculationHandle {
     }
 
     /**
-     * 获取最新任务等级
+     * 获取待完成的最高任务等级
      */
-    private TaskLevelDTO getNewTaskLevel() {
-        return this.taskLevelList.stream()
-                .sorted(Comparator.comparing(TaskLevelDTO::getLevel))
-                .filter(taskLevel -> taskLevel.getLevel() >= currentLevel)
-                .filter(taskLevel -> taskLevel.getTriggerValue() <= userTask.getTriggerValue() + addTriggerValue)
-                .findFirst()
-                .orElseGet(this::getCurrentTaskLevel);
+    private TaskLevelDTO getTargetFinishedTaskLevel() {
+        if (Objects.isNull(this.targetFinishedTaskLevel)) {
+            this.targetFinishedTaskLevel = this.taskLevelList.stream()
+                    .sorted((o1, o2) -> o2.getLevel().compareTo(o1.getLevel()))
+                    .filter(taskLevel -> taskLevel.getLevel() >= currentLevel)
+                    .filter(taskLevel -> taskLevel.getTriggerValue() <= userTask.getTriggerValue() + addTriggerValue)
+                    .findFirst()
+                    .orElseGet(this::getCurrentTaskLevel);
+        }
+        return this.targetFinishedTaskLevel;
     }
 
     private TaskLevelDTO getCurrentTaskLevel() {
@@ -129,8 +142,7 @@ public class TaskCalculationHandle {
      * 判断任务是否完成(触发值达标即完成)
      */
     private boolean isFinished() {
-        TaskLevelDTO newTaskLevel = getNewTaskLevel();
-        return addTriggerValue + userTask.getTriggerValue() >= newTaskLevel.getTriggerValue();
+        return addTriggerValue + userTask.getTriggerValue() >= getTargetFinishedTaskLevel().getTriggerValue();
     }
 
     /**
@@ -139,7 +151,6 @@ public class TaskCalculationHandle {
     private void unFinished() {
         userTask.setTriggerValue(userTask.getTriggerValue() + addTriggerValue);
         userTask.setTaskStatus(TaskStatusEnum.UN_FINISHED);
-        this.result.setUserTask(userTask);
     }
 
     /**
@@ -151,9 +162,8 @@ public class TaskCalculationHandle {
         userTask.setCurrentLevel(newLevel);
         userTask.setTriggerValue(userTask.getTriggerValue() + addTriggerValue);
         userTask.setTaskStatus(taskStatusEnum);
-        this.result.setUserTask(userTask);
 
-        buildUserTaskRecords(newLevel);
+        buildUserTaskRecords();
     }
 
     private TaskStatusEnum getNewTaskStatusEnum() {
@@ -165,20 +175,21 @@ public class TaskCalculationHandle {
      * 获取用户任务进度最新等级
      */
     private int getNewLevel() {
-        TaskLevelDTO newTaskLevel = getNewTaskLevel();
+        TaskLevelDTO targetTaskLevel = getTargetFinishedTaskLevel();
         boolean finishedAllTaskLevel = isFinishedAllTaskLevel();
-        return finishedAllTaskLevel ? newTaskLevel.getLevel() : newTaskLevel.getLevel() + 1;
+        return finishedAllTaskLevel ? targetTaskLevel.getLevel() : targetTaskLevel.getLevel() + 1;
     }
 
     /**
      * 是否完成了所有等级的任务
      */
     private boolean isFinishedAllTaskLevel() {
-        TaskLevelDTO newTaskLevel = getNewTaskLevel();
-        return newTaskLevel.getLevel() >= taskLevelList.size();
+        TaskLevelDTO targetTaskLevel = getTargetFinishedTaskLevel();
+        return targetTaskLevel.getLevel() >= taskLevelList.size();
     }
 
-    private void buildUserTaskRecords(int newLevel) {
+    private void buildUserTaskRecords() {
+        Integer finishedLevel = getTargetFinishedTaskLevel().getLevel();
         List<UserTaskRecord> userTaskRecords = Lists.newArrayList();
         int level = currentLevel;
         do {
@@ -188,7 +199,7 @@ public class TaskCalculationHandle {
             userTaskRecord.setLevel(level);
             userTaskRecord.setFinishedDate(currentDate);
             userTaskRecords.add(userTaskRecord);
-        } while (++level <= newLevel);
+        } while (++level <= finishedLevel);
 
         this.result.setUserTaskRecords(userTaskRecords);
     }
