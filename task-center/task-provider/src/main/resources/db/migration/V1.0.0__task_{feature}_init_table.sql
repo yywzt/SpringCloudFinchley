@@ -92,8 +92,7 @@ CREATE TABLE IF NOT EXISTS `user_task_record`
     `finished_date` DATETIME(6)                       NOT NULL COMMENT '任务完成时间',
     `create_date`   DATETIME(6)                       NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
     `modify_date`   DATETIME(6)                       NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) comment '更新时间',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uni_user_id_task_id_level` (`user_id`, `task_id`, `level`)
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE utf8mb4_unicode_ci
