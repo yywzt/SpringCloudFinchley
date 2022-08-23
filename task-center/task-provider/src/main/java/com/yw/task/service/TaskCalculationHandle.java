@@ -113,7 +113,7 @@ public class TaskCalculationHandle {
     private void doResetUserTask() {
         userTask.setTriggerValue(TaskConstant.DEFAULT_INIT_TRIGGER_VALUE);
         userTask.setCurrentLevel(TaskConstant.DEFAULT_INIT_LEVEL);
-        userTask.setTaskStatus(TaskStatusEnum.UN_FINISHED);
+        userTask.setTaskStatus(TaskConstant.DEFAULT_TASK_STATUS_ENUM);
     }
 
     /**

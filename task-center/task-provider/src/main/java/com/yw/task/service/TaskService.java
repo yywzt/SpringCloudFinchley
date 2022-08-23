@@ -20,11 +20,9 @@ import com.yyw.api.enums.EnableStatusEnum;
 import com.yyw.api.exception.BusinessException;
 import com.yyw.api.vo.PageInfoVO;
 import lombok.NonNull;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,21 +63,16 @@ public class TaskService {
 
     public PageInfoVO<TaskListResponse> list(TaskListRequest taskListRequest) {
         PageInfoVO<Task> taskPageInfo = page(taskListRequest.getClassificationId(), taskListRequest.getPage(), taskListRequest.getSize());
-        List<TaskListResponse> taskListResponses = buildTaskListResponse(taskListRequest.getUserId(), taskPageInfo.getList());
+        List<TaskDTO> taskList = TaskStruct.INSTANCE.convert(taskPageInfo.getList());
+        List<TaskListResponse> taskListResponses = taskList.stream()
+                .map(task -> buildTaskListResponse(taskListRequest.getUserId(), task))
+                .collect(Collectors.toList());
         return taskPageInfo.build(taskListResponses);
     }
 
-    private List<TaskListResponse> buildTaskListResponse(@NonNull Long userId, List<Task> taskList) {
-        if (CollectionUtils.isEmpty(taskList)) {
-            return Collections.emptyList();
-        }
-        List<TaskDTO> taskDTOList = TaskStruct.INSTANCE.convert(taskList);
-        return taskDTOList.stream().map(task -> convert(userId, task)).collect(Collectors.toList());
-    }
-
-    private TaskListResponse convert(@NonNull Long userId, TaskDTO task) {
+    private TaskListResponse buildTaskListResponse(@NonNull Long userId, TaskDTO task) {
         List<TaskLevelDTO> taskLevelList = taskLevelService.list(task.getId());
-        UserTaskDTO userTaskDTO = userTaskService.get(userId, task.getId());
+        UserTaskDTO userTaskDTO = userTaskService.get(userId, task);
         List<TaskLevelResponse> taskLevelResponses = taskLevelList.stream()
                 .map(taskLevel -> new TaskLevelResponse(taskLevel, userTaskDTO))
                 .collect(Collectors.toList());
@@ -97,7 +90,7 @@ public class TaskService {
 
     public TaskDetailsResponse details(TaskDetailsRequest taskDetailsRequest) {
         TaskDTO taskDTO = get(taskDetailsRequest.getTaskId());
-        TaskListResponse taskListResponse = convert(taskDetailsRequest.getUserId(), taskDTO);
+        TaskListResponse taskListResponse = buildTaskListResponse(taskDetailsRequest.getUserId(), taskDTO);
         return TaskStruct.INSTANCE.convert(taskListResponse);
     }
 }

@@ -135,7 +135,7 @@ class TaskCalculationHandleTest {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime localDateTime = now.plusWeeks(-1);
         UserTaskDTO userTask = buildUserTask(1L, taskId, 1,
-                1, TaskStatusEnum.UN_FINISHED, localDateTime, localDateTime);
+                1, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
         TaskCalculationHandle taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 1);
         taskCalculationHandle.handle();
         TaskCalculationHandle.TaskCalculationHandleResult result = taskCalculationHandle.getResult();
@@ -252,9 +252,9 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTaskRecords().size());
 
 
+        //任务未完成
         userTask = buildUserTask(1L, taskId, 1,
                 10, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
-        //任务未完成
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 3);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -293,9 +293,9 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTaskRecords().size());
 
 
+        //任务未完成
         userTask = buildUserTask(1L, taskId, 1,
                 8, TaskStatusEnum.UN_FINISHED, now, now);
-        //任务未完成
         now = LocalDateTime.now();
         userTask = buildUserTask(1L, taskId, 1,
                 8, TaskStatusEnum.UN_FINISHED, now, now);
@@ -373,10 +373,10 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTaskRecords().size());
 
 
-        //任务等级2完成
-        userTask = buildUserTask(1L, taskId, 2,
-                1, TaskStatusEnum.UN_FINISHED, LocalDateTime.now(), LocalDateTime.now());
-        taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 1);
+        //任务等级1、2完成
+        userTask = buildUserTask(null, taskId, 1,
+                0, TaskStatusEnum.UN_FINISHED, LocalDateTime.now(), LocalDateTime.now());
+        taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 2);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
         assertNotNull(result);
@@ -388,25 +388,8 @@ class TaskCalculationHandleTest {
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
         assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertEquals(2, result.getUserTaskRecords().size());
 
-
-        //任务等级3完成
-        userTask = buildUserTask(1L, taskId, 3,
-                2, TaskStatusEnum.UN_FINISHED, LocalDateTime.now(), LocalDateTime.now());
-        taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 1);
-        taskCalculationHandle.handle();
-        result = taskCalculationHandle.getResult();
-        assertNotNull(result);
-        assertEquals(true, result.getFinished());
-
-        assertNotNull(result.getUserTask());
-        assertEquals(3, result.getUserTask().getTriggerValue());
-        assertEquals(3, result.getUserTask().getCurrentLevel());
-        assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
-
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
 
         //任务等级1、2、3完成
         userTask = buildUserTask(null, taskId, 1,
@@ -484,6 +467,24 @@ class TaskCalculationHandleTest {
 
         assertNotNull(result.getUserTaskRecords());
         assertEquals(1, result.getUserTaskRecords().size());
+
+
+        //任务等级3过期  任务等级1、2完成
+        userTask = buildUserTask(1L, taskId, 3,
+                4, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 2);
+        taskCalculationHandle.handle();
+        result = taskCalculationHandle.getResult();
+        assertNotNull(result);
+        assertEquals(true, result.getFinished());
+
+        assertNotNull(result.getUserTask());
+        assertEquals(2, result.getUserTask().getTriggerValue());
+        assertEquals(3, result.getUserTask().getCurrentLevel());
+        assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
+
+        assertNotNull(result.getUserTaskRecords());
+        assertEquals(2, result.getUserTaskRecords().size());
 
 
         //任务等级3过期  任务等级1、2、3完成
@@ -638,10 +639,10 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTaskRecords().size());
 
 
-        //任务等级2完成
-        userTask = buildUserTask(1L, taskId, 2,
-                10, TaskStatusEnum.UN_FINISHED, LocalDateTime.now(), LocalDateTime.now());
-        taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 10);
+        //任务等级1、2完成
+        userTask = buildUserTask(null, taskId, 1,
+                0, TaskStatusEnum.UN_FINISHED, LocalDateTime.now(), LocalDateTime.now());
+        taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 20);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
         assertNotNull(result);
@@ -653,25 +654,8 @@ class TaskCalculationHandleTest {
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
         assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertEquals(2, result.getUserTaskRecords().size());
 
-
-        //任务等级3完成
-        userTask = buildUserTask(1L, taskId, 3,
-                20, TaskStatusEnum.UN_FINISHED, LocalDateTime.now(), LocalDateTime.now());
-        taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 10);
-        taskCalculationHandle.handle();
-        result = taskCalculationHandle.getResult();
-        assertNotNull(result);
-        assertEquals(true, result.getFinished());
-
-        assertNotNull(result.getUserTask());
-        assertEquals(30, result.getUserTask().getTriggerValue());
-        assertEquals(3, result.getUserTask().getCurrentLevel());
-        assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
-
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
 
         //任务等级1、2、3完成
         userTask = buildUserTask(null, taskId, 1,
@@ -750,6 +734,23 @@ class TaskCalculationHandleTest {
         assertNotNull(result.getUserTaskRecords());
         assertEquals(1, result.getUserTaskRecords().size());
 
+
+        //任务等级3过期  任务等级1、2、3完成
+        userTask = buildUserTask(1L, taskId, 3,
+                30, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 20);
+        taskCalculationHandle.handle();
+        result = taskCalculationHandle.getResult();
+        assertNotNull(result);
+        assertEquals(true, result.getFinished());
+
+        assertNotNull(result.getUserTask());
+        assertEquals(20, result.getUserTask().getTriggerValue());
+        assertEquals(3, result.getUserTask().getCurrentLevel());
+        assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
+
+        assertNotNull(result.getUserTaskRecords());
+        assertEquals(2, result.getUserTaskRecords().size());
 
         //任务等级3过期  任务等级1、2、3完成
         userTask = buildUserTask(1L, taskId, 3,

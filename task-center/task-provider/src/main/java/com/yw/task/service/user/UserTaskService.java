@@ -1,7 +1,10 @@
 package com.yw.task.service.user;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
+import com.yw.task.common.constant.TaskConstant;
+import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.user.UserTaskDTO;
-import com.yw.task.common.enums.TaskStatusEnum;
+import com.yw.task.common.enums.CycleTypeEnum;
 import com.yw.task.common.model.user.UserTask;
 import com.yw.task.mapper.user.UserTaskMapper;
 import com.yw.task.struct.UserTaskStruct;
@@ -26,24 +29,29 @@ public class UserTaskService {
      * 获取用户任务进度，如从未做过任务，则返回初始任务进度
      *
      * @param userId 用户ID
-     * @param taskId 任务ID
+     * @param task   任务
      * @return 用户任务
      */
-    public UserTaskDTO get(Long userId, @NonNull Long taskId) {
-        UserTask userTask = userTaskMapper.get(userId, taskId);
+    public UserTaskDTO get(Long userId, @NonNull TaskDTO task) {
+        UserTask userTask = userTaskMapper.get(userId, task.getId());
         if (Objects.isNull(userTask)) {
-            return buildUserTaskDTO(userId, taskId);
+            return defaultUserTaskDTO(userId, task.getId());
         }
-        return UserTaskStruct.INSTANCE.convert(userTask);
+        UserTaskDTO userTaskDTO = UserTaskStruct.INSTANCE.convert(userTask);
+        resetUserTask(task, userTaskDTO);
+        return userTaskDTO;
     }
 
-    private UserTaskDTO buildUserTaskDTO(Long userId, Long taskId) {
+    /**
+     * 默认用户任务进度，初始状态
+     */
+    private UserTaskDTO defaultUserTaskDTO(Long userId, Long taskId) {
         UserTaskDTO userTaskDTO = new UserTaskDTO();
         userTaskDTO.setUserId(userId);
         userTaskDTO.setTaskId(taskId);
-        userTaskDTO.setCurrentLevel(1);
-        userTaskDTO.setTriggerValue(0);
-        userTaskDTO.setTaskStatus(TaskStatusEnum.UN_FINISHED);
+        userTaskDTO.setCurrentLevel(TaskConstant.DEFAULT_INIT_LEVEL);
+        userTaskDTO.setTriggerValue(TaskConstant.DEFAULT_INIT_TRIGGER_VALUE);
+        userTaskDTO.setTaskStatus(TaskConstant.DEFAULT_TASK_STATUS_ENUM);
         userTaskDTO.setCreateDate(LocalDateTime.now());
         userTaskDTO.setModifyDate(LocalDateTime.now());
         return userTaskDTO;
@@ -55,5 +63,34 @@ public class UserTaskService {
         }
         UserTask userTask = UserTaskStruct.INSTANCE.convert(userTaskDTO);
         userTaskMapper.addOrUpdate(userTask);
+    }
+
+    /**
+     * 如果过了任务周期 则重置等级、触发值、任务状态
+     */
+    public void resetUserTask(TaskDTO task, UserTaskDTO userTask) {
+        if (CycleTypeEnum.PERMANENT.equals(task.getCycleType())) {
+            return;
+        }
+        if (CycleTypeEnum.WEEK.equals(task.getCycleType())) {
+            if (LocalDateTimeUtil.weekOfYear(userTask.getModifyDate())
+                    == LocalDateTimeUtil.weekOfYear(LocalDateTime.now())) {
+                return;
+            }
+            doResetUserTask(userTask);
+            return;
+        }
+        if (CycleTypeEnum.DAY.equals(task.getCycleType())) {
+            if (LocalDateTimeUtil.isSameDay(userTask.getModifyDate(), LocalDateTime.now())) {
+                return;
+            }
+            doResetUserTask(userTask);
+        }
+    }
+
+    private void doResetUserTask(UserTaskDTO userTask) {
+        userTask.setTriggerValue(TaskConstant.DEFAULT_INIT_TRIGGER_VALUE);
+        userTask.setCurrentLevel(TaskConstant.DEFAULT_INIT_LEVEL);
+        userTask.setTaskStatus(TaskConstant.DEFAULT_TASK_STATUS_ENUM);
     }
 }
