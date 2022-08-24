@@ -1,6 +1,7 @@
 package com.yw.task.service;
 
 import com.google.common.collect.Lists;
+import com.yw.task.common.constant.TaskConstant;
 import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.TaskLevelDTO;
 import com.yw.task.common.dto.user.UserTaskDTO;
@@ -133,9 +134,8 @@ class TaskCalculationHandleTest {
      */
     private void task_un_finished_trigger_value_invalid(long taskId, TaskDTO task, List<TaskLevelDTO> taskLevelList) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime localDateTime = now.plusWeeks(-1);
-        UserTaskDTO userTask = buildUserTask(1L, taskId, 1,
-                1, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        UserTaskDTO userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         TaskCalculationHandle taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 1);
         taskCalculationHandle.handle();
         TaskCalculationHandle.TaskCalculationHandleResult result = taskCalculationHandle.getResult();
@@ -233,9 +233,8 @@ class TaskCalculationHandleTest {
      */
     private void task_un_finished_trigger_value_invalid_2(long taskId, TaskDTO task, List<TaskLevelDTO> taskLevelList) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime localDateTime = now.plusWeeks(-1);
-        UserTaskDTO userTask = buildUserTask(1L, taskId, 1,
-                10, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        UserTaskDTO userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         //任务完成
         TaskCalculationHandle taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 10);
         taskCalculationHandle.handle();
@@ -253,8 +252,8 @@ class TaskCalculationHandleTest {
 
 
         //任务未完成
-        userTask = buildUserTask(1L, taskId, 1,
-                10, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 3);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -414,10 +413,9 @@ class TaskCalculationHandleTest {
      */
     private void task_un_finished_trigger_value_invalid_3(long taskId, TaskDTO task, List<TaskLevelDTO> taskLevelList) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime localDateTime = now.plusWeeks(-1);
         //任务等级1过期  任务等级1完成
-        UserTaskDTO userTask = buildUserTask(1L, taskId, 1,
-                1, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        UserTaskDTO userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         TaskCalculationHandle taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 1);
         taskCalculationHandle.handle();
         TaskCalculationHandle.TaskCalculationHandleResult result = taskCalculationHandle.getResult();
@@ -434,8 +432,8 @@ class TaskCalculationHandleTest {
 
 
         //任务等级2过期  任务等级1完成
-        userTask = buildUserTask(1L, taskId, 2,
-                2, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 1);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -452,8 +450,8 @@ class TaskCalculationHandleTest {
 
 
         //任务等级3过期  任务等级1完成
-        userTask = buildUserTask(1L, taskId, 3,
-                3, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 1);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -470,8 +468,8 @@ class TaskCalculationHandleTest {
 
 
         //任务等级3过期  任务等级1、2完成
-        userTask = buildUserTask(1L, taskId, 3,
-                4, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 2);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -488,8 +486,8 @@ class TaskCalculationHandleTest {
 
 
         //任务等级3过期  任务等级1、2、3完成
-        userTask = buildUserTask(1L, taskId, 3,
-                4, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 3);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -680,10 +678,9 @@ class TaskCalculationHandleTest {
      */
     private void task_un_finished_trigger_value_invalid_4(long taskId, TaskDTO task, List<TaskLevelDTO> taskLevelList) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime localDateTime = now.plusWeeks(-1);
         //任务等级1过期  任务等级1完成
-        UserTaskDTO userTask = buildUserTask(1L, taskId, 1,
-                10, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        UserTaskDTO userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         TaskCalculationHandle taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 10);
         taskCalculationHandle.handle();
         TaskCalculationHandle.TaskCalculationHandleResult result = taskCalculationHandle.getResult();
@@ -700,8 +697,8 @@ class TaskCalculationHandleTest {
 
 
         //任务等级2过期  任务等级1完成
-        userTask = buildUserTask(1L, taskId, 2,
-                20, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 10);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -718,8 +715,8 @@ class TaskCalculationHandleTest {
 
 
         //任务等级3过期  任务等级1完成
-        userTask = buildUserTask(1L, taskId, 3,
-                30, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 10);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -736,8 +733,8 @@ class TaskCalculationHandleTest {
 
 
         //任务等级3过期  任务等级1、2、3完成
-        userTask = buildUserTask(1L, taskId, 3,
-                30, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 20);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();
@@ -753,8 +750,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTaskRecords().size());
 
         //任务等级3过期  任务等级1、2、3完成
-        userTask = buildUserTask(1L, taskId, 3,
-                30, TaskStatusEnum.FINISHED, localDateTime, localDateTime);
+        userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
+                TaskConstant.DEFAULT_INIT_TRIGGER_VALUE, TaskStatusEnum.UN_FINISHED, now, now);
         taskCalculationHandle = new TaskCalculationHandle(task, taskLevelList, userTask, 30);
         taskCalculationHandle.handle();
         result = taskCalculationHandle.getResult();

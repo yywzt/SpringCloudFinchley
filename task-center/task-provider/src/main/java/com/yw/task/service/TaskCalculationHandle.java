@@ -1,12 +1,9 @@
 package com.yw.task.service;
 
-import cn.hutool.core.date.LocalDateTimeUtil;
 import com.google.common.collect.Lists;
-import com.yw.task.common.constant.TaskConstant;
 import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.TaskLevelDTO;
 import com.yw.task.common.dto.user.UserTaskDTO;
-import com.yw.task.common.enums.CycleTypeEnum;
 import com.yw.task.common.enums.TaskResponseCode;
 import com.yw.task.common.enums.TaskStatusEnum;
 import com.yw.task.common.model.user.UserTaskRecord;
@@ -35,7 +32,7 @@ public class TaskCalculationHandle {
      */
     private final List<TaskLevelDTO> taskLevelList;
     /**
-     * 用户当前任务进度
+     * 用户当前任务进度，重置后的真实任务进度
      */
     private final UserTaskDTO userTask;
     /**
@@ -69,7 +66,6 @@ public class TaskCalculationHandle {
         this.userTask = userTask;
         this.addTriggerValue = addTriggerValue;
         this.currentDate = LocalDateTime.now();
-        resetUserTask();
         this.currentLevel = userTask.getCurrentLevel();
         this.result = TaskCalculationHandleResult.init();
         this.result.setUserTask(userTask);
@@ -85,35 +81,6 @@ public class TaskCalculationHandle {
             return;
         }
         unFinished();
-    }
-
-    /**
-     * 如果过了任务周期 则重置等级、触发值、任务状态
-     */
-    public void resetUserTask() {
-        if (CycleTypeEnum.PERMANENT.equals(task.getCycleType())) {
-            return;
-        }
-        if (CycleTypeEnum.WEEK.equals(task.getCycleType())) {
-            if (LocalDateTimeUtil.weekOfYear(userTask.getModifyDate())
-                    == LocalDateTimeUtil.weekOfYear(currentDate)) {
-                return;
-            }
-            doResetUserTask();
-            return;
-        }
-        if (CycleTypeEnum.DAY.equals(task.getCycleType())) {
-            if (LocalDateTimeUtil.isSameDay(userTask.getModifyDate(), currentDate)) {
-                return;
-            }
-            doResetUserTask();
-        }
-    }
-
-    private void doResetUserTask() {
-        userTask.setTriggerValue(TaskConstant.DEFAULT_INIT_TRIGGER_VALUE);
-        userTask.setCurrentLevel(TaskConstant.DEFAULT_INIT_LEVEL);
-        userTask.setTaskStatus(TaskConstant.DEFAULT_TASK_STATUS_ENUM);
     }
 
     /**
@@ -185,7 +152,7 @@ public class TaskCalculationHandle {
      */
     private boolean isFinishedAllTaskLevel() {
         TaskLevelDTO targetTaskLevel = getTargetFinishedTaskLevel();
-        return targetTaskLevel.getLevel() >= taskLevelList.size();
+        return targetTaskLevel.getLevel() >= task.getLevel();
     }
 
     private void buildUserTaskRecords() {

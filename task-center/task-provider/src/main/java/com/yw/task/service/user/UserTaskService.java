@@ -68,7 +68,7 @@ public class UserTaskService {
     /**
      * 如果过了任务周期 则重置等级、触发值、任务状态
      */
-    public void resetUserTask(TaskDTO task, UserTaskDTO userTask) {
+    private void resetUserTask(TaskDTO task, UserTaskDTO userTask) {
         if (CycleTypeEnum.PERMANENT.equals(task.getCycleType())) {
             return;
         }
