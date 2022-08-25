@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yw.task.mapper.user.UserTaskRewardMapper">
+
+    <insert id="batchSave">
+        INSERT INTO `user_task_reward`(`task_id`, `user_id`, `level`,`reward_content`, `grant_status`)
+        VALUES
+        <foreach collection="userTaskRewards" item="userTaskReward" separator="," open="(" close=")">
+            #{userTaskReward.taskId},#{userTaskReward.userId},#{userTaskReward.level},#{userTaskReward.rewardContent},#{userTaskReward.grantStatus}
+        </foreach>
+    </insert>
+
+</mapper>
