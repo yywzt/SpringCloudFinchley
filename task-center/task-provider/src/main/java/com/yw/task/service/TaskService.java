@@ -14,6 +14,7 @@ import com.yw.task.common.response.TaskLevelResponse;
 import com.yw.task.common.response.TaskListResponse;
 import com.yw.task.mapper.TaskMapper;
 import com.yw.task.service.user.UserTaskService;
+import com.yw.task.struct.TaskListResponseStruct;
 import com.yw.task.struct.TaskStruct;
 import com.yw.task.util.PageUtil;
 import com.yyw.api.enums.EnableStatusEnum;
@@ -76,16 +77,7 @@ public class TaskService {
         List<TaskLevelResponse> taskLevelResponses = taskLevelList.stream()
                 .map(taskLevel -> new TaskLevelResponse(taskLevel, userTaskDTO))
                 .collect(Collectors.toList());
-
-        TaskListResponse taskListResponse = new TaskListResponse();
-        taskListResponse.setId(task.getId());
-        taskListResponse.setTitle(task.getTitle());
-        taskListResponse.setLevel(task.getLevel());
-        taskListResponse.setCurrentLevel(userTaskDTO.getCurrentLevel());
-        taskListResponse.setTaskStatus(userTaskDTO.getTaskStatus().getStatus());
-        taskListResponse.setTaskStatusName(userTaskDTO.getTaskStatus().getName());
-        taskListResponse.setTaskLevel(taskLevelResponses);
-        return taskListResponse;
+        return TaskListResponseStruct.INSTANCE.convert(task, userTaskDTO, taskLevelResponses);
     }
 
     public TaskDetailsResponse details(TaskDetailsRequest taskDetailsRequest) {
