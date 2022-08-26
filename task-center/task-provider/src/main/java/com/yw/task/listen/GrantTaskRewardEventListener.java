@@ -2,6 +2,7 @@ package com.yw.task.listen;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.yw.task.common.dto.user.UserTaskRewardContent;
+import com.yw.task.common.enums.GrantStatusEnum;
 import com.yw.task.common.enums.TaskRewardTypeEnum;
 import com.yw.task.common.model.user.UserTaskReward;
 import com.yw.task.event.GrantTaskRewardEvent;
@@ -38,23 +39,24 @@ public class GrantTaskRewardEventListener {
     @EventListener(GrantTaskRewardEvent.class)
     public void grantTaskReward(GrantTaskRewardEvent grantTaskRewardEvent) {
         List<UserTaskReward> userTaskRewards = grantTaskRewardEvent.getUserTaskRewards();
-        doGrantTaskReward(userTaskRewards);
-        updateGrantStatus(userTaskRewards);
-    }
-
-    private void updateGrantStatus(List<UserTaskReward> userTaskRewards) {
-        userTaskRewardService.grantFinished(userTaskRewards);
-    }
-
-    private void doGrantTaskReward(List<UserTaskReward> userTaskRewards) {
         if (CollectionUtils.isEmpty(userTaskRewards)) {
             return;
         }
+
+        boolean grantResult = doGrantTaskReward(userTaskRewards);
+        updateGrantStatus(userTaskRewards, grantResult);
+    }
+
+    private void updateGrantStatus(List<UserTaskReward> userTaskRewards, boolean grantResult) {
+        GrantStatusEnum grantStatusEnum = grantResult ? GrantStatusEnum.GRANT_FINISHED : GrantStatusEnum.GRANT_FAILURE;
+        userTaskRewardService.grantFinished(userTaskRewards, grantStatusEnum);
+    }
+
+    private boolean doGrantTaskReward(List<UserTaskReward> userTaskRewards) {
         List<GrantAssetsRequest> grantAssetsRequests = userTaskRewards.stream()
                 .map(this::build)
                 .collect(Collectors.toList());
-        Boolean result = userAssetsClient.batchGrant(grantAssetsRequests);
-        log.info("doGrantTaskReward execute result: {}", result);
+        return userAssetsClient.batchGrant(grantAssetsRequests);
     }
 
     private GrantAssetsRequest build(UserTaskReward userTaskReward) {

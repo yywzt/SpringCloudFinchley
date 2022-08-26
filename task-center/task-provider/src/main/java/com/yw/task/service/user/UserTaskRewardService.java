@@ -40,6 +40,9 @@ public class UserTaskRewardService {
     public void batchReward(Long userId, TaskDTO task, Set<Integer> levels) {
         List<TaskRewardDTO> taskLevelRewards = taskLevelRewardService.get(task.getId(), levels);
         List<UserTaskReward> userTaskRewards = saveUserTaskRewards(userId, task, taskLevelRewards);
+        if (CollectionUtils.isEmpty(userTaskRewards)) {
+            return;
+        }
         applicationContext.publishEvent(new GrantTaskRewardEvent(this, userTaskRewards));
     }
 
@@ -71,11 +74,11 @@ public class UserTaskRewardService {
         return userTaskReward;
     }
 
-    public void grantFinished(List<UserTaskReward> userTaskRewards) {
-        if(CollectionUtils.isEmpty(userTaskRewards)) {
+    public void grantFinished(List<UserTaskReward> userTaskRewards, GrantStatusEnum grantStatusEnum) {
+        if (CollectionUtils.isEmpty(userTaskRewards)) {
             return;
         }
         List<Long> ids = userTaskRewards.stream().map(UserTaskReward::getId).collect(Collectors.toList());
-        userTaskRewardMapper.updateGrantStatus(ids, GrantStatusEnum.GRANT_FINISHED.getStatus());
+        userTaskRewardMapper.updateGrantStatus(ids, grantStatusEnum.getStatus());
     }
 }
