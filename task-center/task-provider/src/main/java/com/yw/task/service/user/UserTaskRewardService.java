@@ -8,6 +8,7 @@ import com.yw.task.event.GrantTaskRewardEvent;
 import com.yw.task.mapper.user.UserTaskRewardMapper;
 import com.yw.task.service.TaskLevelRewardService;
 import com.yw.task.util.JsonUtil;
+import com.yw.task.util.UUIDExtUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,7 @@ public class UserTaskRewardService {
         userTaskReward.setLevel(taskRewardDTO.getLevel());
         userTaskReward.setRewardContent(rewardContent);
         userTaskReward.setGrantStatus(GrantStatusEnum.AWAIT_GRANT.getStatus());
+        userTaskReward.setSerialNumber(UUIDExtUtil.uuid());
         return userTaskReward;
     }
 
