@@ -38,7 +38,7 @@ public class UserTaskRewardService {
     public void batchReward(Long userId, Long taskId, Set<Integer> levels) {
         List<TaskRewardDTO> taskLevelRewards = taskLevelRewardService.get(taskId, levels);
         List<UserTaskReward> userTaskRewards = saveUserTaskRewards(userId, taskId, taskLevelRewards);
-        applicationContext.publishEvent(new GrantTaskRewardEvent(userTaskRewards));
+        applicationContext.publishEvent(new GrantTaskRewardEvent(this, userTaskRewards));
     }
 
     private List<UserTaskReward> saveUserTaskRewards(Long userId, Long taskId, List<TaskRewardDTO> taskLevelRewards) {

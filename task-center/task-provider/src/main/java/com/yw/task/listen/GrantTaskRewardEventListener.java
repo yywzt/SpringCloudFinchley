@@ -19,7 +19,7 @@ public class GrantTaskRewardEventListener {
     @Async("grantTaskRewardExecutor")
     @EventListener(GrantTaskRewardEvent.class)
     public void grantTaskReward(GrantTaskRewardEvent grantTaskRewardEvent) {
-        List<UserTaskReward> userTaskRewards = (List<UserTaskReward>) grantTaskRewardEvent.getSource();
+        List<UserTaskReward> userTaskRewards = grantTaskRewardEvent.getUserTaskRewards();
         doGrantTaskReward(userTaskRewards);
         updateStatus(userTaskRewards);
     }

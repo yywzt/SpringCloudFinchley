@@ -29,7 +29,7 @@ public class TaskFinishedEventListener {
 
     @EventListener(TaskFinishedEvent.class)
     public void taskFinished(TaskFinishedEvent taskFinishedEvent) {
-        Long userId = (Long) taskFinishedEvent.getSource();
+        Long userId = taskFinishedEvent.getUserId();
         TaskDTO task = taskFinishedEvent.getTask();
         Set<Integer> finishedTaskLevels = taskFinishedEvent.getFinishedTaskLevels();
         LocalDateTime finishedDate = taskFinishedEvent.getFinishedDate();

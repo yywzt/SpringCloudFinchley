@@ -14,14 +14,17 @@ import java.util.Set;
 @Getter
 public class TaskFinishedEvent extends ApplicationEvent {
 
+    private final Long userId;
+
     private final transient TaskDTO task;
 
     private final transient Set<Integer> finishedTaskLevels;
 
     private final transient LocalDateTime finishedDate;
 
-    public TaskFinishedEvent(Object source, TaskDTO task, Set<Integer> finishedTaskLevels, LocalDateTime finishedDate) {
+    public TaskFinishedEvent(Object source, Long userId, TaskDTO task, Set<Integer> finishedTaskLevels, LocalDateTime finishedDate) {
         super(source);
+        this.userId = userId;
         this.task = task;
         this.finishedTaskLevels = finishedTaskLevels;
         this.finishedDate = finishedDate;
