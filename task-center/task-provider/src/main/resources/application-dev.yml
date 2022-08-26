@@ -63,3 +63,11 @@ pagehelper:
   # 合理化参数配置 pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页
   reasonable: false
   support-methods-arguments: true
+feign:
+  circuitbreaker:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 2000

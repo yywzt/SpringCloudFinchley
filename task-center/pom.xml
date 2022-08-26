@@ -30,6 +30,8 @@
         <hutool.version>5.8.5</hutool.version>
         <h2.version>1.4.197</h2.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
+        <spring-cloud-starter-circuitbreaker-reactor-resilience4j.version>2.1.3
+        </spring-cloud-starter-circuitbreaker-reactor-resilience4j.version>
     </properties>
 
     <dependencyManagement>
@@ -116,6 +118,12 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-circuitbreaker-reactor-resilience4j -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+                <version>${spring-cloud-starter-circuitbreaker-reactor-resilience4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
