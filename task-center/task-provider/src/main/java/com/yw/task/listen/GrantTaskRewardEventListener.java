@@ -4,6 +4,7 @@ import com.yw.task.common.model.user.UserTaskReward;
 import com.yw.task.event.GrantTaskRewardEvent;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @Component
 public class GrantTaskRewardEventListener {
 
+    @Async("grantTaskRewardExecutor")
     @EventListener(GrantTaskRewardEvent.class)
     public void grantTaskReward(GrantTaskRewardEvent grantTaskRewardEvent) {
         List<UserTaskReward> userTaskRewards = (List<UserTaskReward>) grantTaskRewardEvent.getSource();
