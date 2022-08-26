@@ -34,13 +34,13 @@ public class UserTaskRewardService {
     @Resource
     private ApplicationContext applicationContext;
 
-    public void add(Long userId, Long taskId, Set<Integer> levels) {
+    public void batchReward(Long userId, Long taskId, Set<Integer> levels) {
         List<TaskRewardDTO> taskLevelRewards = taskLevelRewardService.get(taskId, levels);
-        List<UserTaskReward> userTaskRewards = saveUserTaskReward(userId, taskId, taskLevelRewards);
+        List<UserTaskReward> userTaskRewards = saveUserTaskRewards(userId, taskId, taskLevelRewards);
         applicationContext.publishEvent(new GrantTaskRewardEvent(userTaskRewards));
     }
 
-    private List<UserTaskReward> saveUserTaskReward(Long userId, Long taskId, List<TaskRewardDTO> taskLevelRewards) {
+    private List<UserTaskReward> saveUserTaskRewards(Long userId, Long taskId, List<TaskRewardDTO> taskLevelRewards) {
         if (CollectionUtils.isEmpty(taskLevelRewards)) {
             return Collections.emptyList();
         }

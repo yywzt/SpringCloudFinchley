@@ -1,12 +1,11 @@
 package com.yw.task.service;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.TaskLevelDTO;
 import com.yw.task.common.dto.user.UserTaskDTO;
 import com.yw.task.common.enums.TaskResponseCode;
 import com.yw.task.common.enums.TaskStatusEnum;
-import com.yw.task.common.model.user.UserTaskRecord;
 import com.yyw.api.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author yanzhitao@xiaomalixing.com
@@ -76,11 +76,17 @@ public class TaskCalculationHandle {
             return;
         }
         if (isFinished()) {
-            this.result.setFinished(true);
             finished();
+            setResult();
             return;
         }
         unFinished();
+    }
+
+    private void setResult() {
+        this.result.setFinished(true);
+        this.result.setFinishedDate(currentDate);
+        this.result.setFinishedTaskLevels(getFinishedTaskLevels());
     }
 
     /**
@@ -129,8 +135,6 @@ public class TaskCalculationHandle {
         userTask.setCurrentLevel(newLevel);
         userTask.setTriggerValue(userTask.getTriggerValue() + addTriggerValue);
         userTask.setTaskStatus(taskStatusEnum);
-
-        buildUserTaskRecords();
     }
 
     private TaskStatusEnum getNewTaskStatusEnum() {
@@ -155,20 +159,13 @@ public class TaskCalculationHandle {
         return targetTaskLevel.getLevel() >= task.getLevel();
     }
 
-    private void buildUserTaskRecords() {
+    private Set<Integer> getFinishedTaskLevels() {
         Integer finishedLevel = getTargetFinishedTaskLevel().getLevel();
-        List<UserTaskRecord> userTaskRecords = Lists.newArrayList();
-        int level = currentLevel;
-        do {
-            UserTaskRecord userTaskRecord = new UserTaskRecord();
-            userTaskRecord.setTaskId(userTask.getTaskId());
-            userTaskRecord.setUserId(userTask.getUserId());
-            userTaskRecord.setLevel(level);
-            userTaskRecord.setFinishedDate(currentDate);
-            userTaskRecords.add(userTaskRecord);
-        } while (++level <= finishedLevel);
-
-        this.result.setUserTaskRecords(userTaskRecords);
+        Set<Integer> finishedTaskLevels = Sets.newLinkedHashSet();
+        for (int i = currentLevel; i <= finishedLevel; i++) {
+            finishedTaskLevels.add(i);
+        }
+        return finishedTaskLevels;
     }
 
     @Data
@@ -180,10 +177,17 @@ public class TaskCalculationHandle {
          */
         private Boolean finished;
         private UserTaskDTO userTask;
-        private List<UserTaskRecord> userTaskRecords;
+        /**
+         * 完成任务的任务等级
+         */
+        private Set<Integer> finishedTaskLevels;
+        /**
+         * 任务完成时间
+         */
+        private LocalDateTime finishedDate;
 
         public static TaskCalculationHandleResult init() {
-            return new TaskCalculationHandleResult(false, null, Collections.emptyList());
+            return new TaskCalculationHandleResult(false, null, Collections.emptySet(), null);
         }
     }
 }

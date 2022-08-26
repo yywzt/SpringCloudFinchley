@@ -1,11 +1,11 @@
 package com.yw.task.event;
 
 import com.yw.task.common.dto.TaskDTO;
-import com.yw.task.common.model.user.UserTaskRecord;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * @author yanzhitao@xiaomalixing.com
@@ -16,11 +16,14 @@ public class TaskFinishedEvent extends ApplicationEvent {
 
     private final transient TaskDTO task;
 
-    private final transient List<UserTaskRecord> userTaskRecords;
+    private final transient Set<Integer> finishedTaskLevels;
 
-    public TaskFinishedEvent(Object source, TaskDTO task, List<UserTaskRecord> userTaskRecords) {
+    private final transient LocalDateTime finishedDate;
+
+    public TaskFinishedEvent(Object source, TaskDTO task, Set<Integer> finishedTaskLevels, LocalDateTime finishedDate) {
         super(source);
         this.task = task;
-        this.userTaskRecords = userTaskRecords;
+        this.finishedTaskLevels = finishedTaskLevels;
+        this.finishedDate = finishedDate;
     }
 }

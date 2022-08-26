@@ -19,6 +19,11 @@ public class GrantTaskRewardEventListener {
     public void grantTaskReward(GrantTaskRewardEvent grantTaskRewardEvent) {
         List<UserTaskReward> userTaskRewards = (List<UserTaskReward>) grantTaskRewardEvent.getSource();
         doGrantTaskReward(userTaskRewards);
+        updateStatus(userTaskRewards);
+    }
+
+    private void updateStatus(List<UserTaskReward> userTaskRewards) {
+        //TODO 发放奖励完成后 更新发放状态
     }
 
     private void doGrantTaskReward(List<UserTaskReward> userTaskRewards) {

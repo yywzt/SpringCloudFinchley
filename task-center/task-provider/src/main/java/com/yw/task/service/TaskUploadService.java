@@ -53,6 +53,6 @@ public class TaskUploadService {
         if (Boolean.FALSE.equals(result.getFinished())) {
             return;
         }
-        applicationContext.publishEvent(new TaskFinishedEvent(userId, task, result.getUserTaskRecords()));
+        applicationContext.publishEvent(new TaskFinishedEvent(userId, task, result.getFinishedTaskLevels(), result.getFinishedDate()));
     }
 }

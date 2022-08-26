@@ -104,8 +104,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(0, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(0, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -125,8 +125,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -147,8 +147,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -184,8 +184,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(0, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(0, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -206,8 +206,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务未完成
@@ -224,8 +224,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(0, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(0, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -247,8 +247,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务未完成
@@ -265,8 +265,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(0, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(0, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -288,8 +288,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务未完成
@@ -309,8 +309,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(0, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(0, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -346,8 +346,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(0, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(0, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -368,8 +368,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务等级1、2完成
@@ -386,8 +386,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(2, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(2, result.getFinishedTaskLevels().size());
 
 
         //任务等级1、2、3完成
@@ -404,8 +404,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(3, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(3, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -427,8 +427,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务等级2过期  任务等级1完成
@@ -445,8 +445,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务等级3过期  任务等级1完成
@@ -463,8 +463,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务等级3过期  任务等级1、2完成
@@ -481,8 +481,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(2, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(2, result.getFinishedTaskLevels().size());
 
 
         //任务等级3过期  任务等级1、2、3完成
@@ -499,8 +499,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(3, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(3, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -522,8 +522,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         userTask = buildUserTask(1L, taskId, 2,
@@ -539,8 +539,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(2, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(2, result.getFinishedTaskLevels().size());
 
 
         userTask = buildUserTask(1L, taskId, 3,
@@ -556,8 +556,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -593,8 +593,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(0, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(0, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -615,8 +615,8 @@ class TaskCalculationHandleTest {
         assertEquals(1, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(0, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(0, result.getFinishedTaskLevels().size());
 
 
         //任务等级1完成
@@ -633,8 +633,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务等级1、2完成
@@ -651,8 +651,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(2, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(2, result.getFinishedTaskLevels().size());
 
 
         //任务等级1、2、3完成
@@ -669,8 +669,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(3, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(3, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -692,8 +692,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务等级2过期  任务等级1完成
@@ -710,8 +710,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务等级3过期  任务等级1完成
@@ -728,8 +728,8 @@ class TaskCalculationHandleTest {
         assertEquals(2, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         //任务等级3过期  任务等级1、2、3完成
@@ -746,8 +746,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(2, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(2, result.getFinishedTaskLevels().size());
 
         //任务等级3过期  任务等级1、2、3完成
         userTask = buildUserTask(1L, taskId, TaskConstant.DEFAULT_INIT_LEVEL,
@@ -763,8 +763,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(3, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(3, result.getFinishedTaskLevels().size());
     }
 
     /**
@@ -786,8 +786,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.UN_FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
 
 
         userTask = buildUserTask(1L, taskId, 2,
@@ -803,8 +803,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(2, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(2, result.getFinishedTaskLevels().size());
 
 
         userTask = buildUserTask(1L, taskId, 3,
@@ -820,8 +820,8 @@ class TaskCalculationHandleTest {
         assertEquals(3, result.getUserTask().getCurrentLevel());
         assertEquals(TaskStatusEnum.FINISHED, result.getUserTask().getTaskStatus());
 
-        assertNotNull(result.getUserTaskRecords());
-        assertEquals(1, result.getUserTaskRecords().size());
+        assertNotNull(result.getFinishedTaskLevels());
+        assertEquals(1, result.getFinishedTaskLevels().size());
     }
 
 }
