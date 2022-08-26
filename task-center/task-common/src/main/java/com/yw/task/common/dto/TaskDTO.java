@@ -18,6 +18,11 @@ public class TaskDTO {
     private String title;
 
     /**
+     * 任务分类名称
+     */
+    private String classificationName;
+
+    /**
      * 任务总等级
      */
     private Integer level;

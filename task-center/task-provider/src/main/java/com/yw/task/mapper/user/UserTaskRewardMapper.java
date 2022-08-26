@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface UserTaskRewardMapper extends Mapper<UserTaskReward> {
     void batchSave(@Param("userTaskRewards") List<UserTaskReward> userTaskRewards);
+
+    void updateGrantStatus(@Param("ids") List<Long> ids, @Param("grantStatus") Integer grantStatus);
 }

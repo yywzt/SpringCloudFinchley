@@ -35,11 +35,11 @@ public class TaskFinishedEventListener {
         LocalDateTime finishedDate = taskFinishedEvent.getFinishedDate();
 
         addUserTaskRecord(userId, task.getId(), finishedTaskLevels, finishedDate);
-        addUserTaskReward(userId, task.getId(), finishedTaskLevels);
+        addUserTaskReward(userId, task, finishedTaskLevels);
     }
 
-    private void addUserTaskReward(Long userId, Long taskId, Set<Integer> finishedTaskLevelSet) {
-        userTaskRewardService.batchReward(userId, taskId, finishedTaskLevelSet);
+    private void addUserTaskReward(Long userId, TaskDTO task, Set<Integer> finishedTaskLevelSet) {
+        userTaskRewardService.batchReward(userId, task, finishedTaskLevelSet);
     }
 
     private void addUserTaskRecord(Long userId, Long taskId, Set<Integer> finishedTaskLevels, LocalDateTime finishedDate) {

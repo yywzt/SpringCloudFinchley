@@ -49,6 +49,10 @@ public class UserTaskReward {
      * 流水号
      */
     private String serialNumber;
+    /**
+     * 备注
+     */
+    private String memo;
 
     private LocalDateTime createDate;
 

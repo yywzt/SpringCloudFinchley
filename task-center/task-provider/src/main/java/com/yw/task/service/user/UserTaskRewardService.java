@@ -1,5 +1,6 @@
 package com.yw.task.service.user;
 
+import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.TaskRewardDTO;
 import com.yw.task.common.dto.user.UserTaskRewardContent;
 import com.yw.task.common.enums.GrantStatusEnum;
@@ -35,23 +36,24 @@ public class UserTaskRewardService {
     @Resource
     private ApplicationContext applicationContext;
 
-    public void batchReward(Long userId, Long taskId, Set<Integer> levels) {
-        List<TaskRewardDTO> taskLevelRewards = taskLevelRewardService.get(taskId, levels);
-        List<UserTaskReward> userTaskRewards = saveUserTaskRewards(userId, taskId, taskLevelRewards);
+
+    public void batchReward(Long userId, TaskDTO task, Set<Integer> levels) {
+        List<TaskRewardDTO> taskLevelRewards = taskLevelRewardService.get(task.getId(), levels);
+        List<UserTaskReward> userTaskRewards = saveUserTaskRewards(userId, task, taskLevelRewards);
         applicationContext.publishEvent(new GrantTaskRewardEvent(this, userTaskRewards));
     }
 
-    private List<UserTaskReward> saveUserTaskRewards(Long userId, Long taskId, List<TaskRewardDTO> taskLevelRewards) {
+    private List<UserTaskReward> saveUserTaskRewards(Long userId, TaskDTO task, List<TaskRewardDTO> taskLevelRewards) {
         if (CollectionUtils.isEmpty(taskLevelRewards)) {
             return Collections.emptyList();
         }
         List<UserTaskReward> userTaskRewards = taskLevelRewards.stream()
-                .map(taskRewardDTO -> build(userId, taskId, taskRewardDTO)).collect(Collectors.toList());
+                .map(taskRewardDTO -> build(userId, task, taskRewardDTO)).collect(Collectors.toList());
         userTaskRewardMapper.batchSave(userTaskRewards);
         return userTaskRewards;
     }
 
-    private UserTaskReward build(Long userId, Long taskId, TaskRewardDTO taskRewardDTO) {
+    private UserTaskReward build(Long userId, TaskDTO task, TaskRewardDTO taskRewardDTO) {
         List<UserTaskRewardContent> userTaskRewardContents = taskRewardDTO.getRewards()
                 .stream()
                 .map(taskLevelRewardDTO -> new UserTaskRewardContent(taskLevelRewardDTO.getType(), taskLevelRewardDTO.getValue()))
@@ -59,13 +61,21 @@ public class UserTaskRewardService {
         String rewardContent = jsonUtil.toJson(userTaskRewardContents);
 
         UserTaskReward userTaskReward = new UserTaskReward();
-        userTaskReward.setTaskId(taskId);
+        userTaskReward.setTaskId(task.getId());
         userTaskReward.setUserId(userId);
         userTaskReward.setLevel(taskRewardDTO.getLevel());
         userTaskReward.setRewardContent(rewardContent);
         userTaskReward.setGrantStatus(GrantStatusEnum.AWAIT_GRANT.getStatus());
         userTaskReward.setSerialNumber(UUIDExtUtil.uuid());
+        userTaskReward.setMemo(task.getClassificationName() + ": " + task.getTitle());
         return userTaskReward;
     }
 
+    public void grantFinished(List<UserTaskReward> userTaskRewards) {
+        if(CollectionUtils.isEmpty(userTaskRewards)) {
+            return;
+        }
+        List<Long> ids = userTaskRewards.stream().map(UserTaskReward::getId).collect(Collectors.toList());
+        userTaskRewardMapper.updateGrantStatus(ids, GrantStatusEnum.GRANT_FINISHED.getStatus());
+    }
 }
