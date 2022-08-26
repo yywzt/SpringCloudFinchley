@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -56,7 +57,8 @@ public class GrantTaskRewardEventListener {
         List<GrantAssetsRequest> grantAssetsRequests = userTaskRewards.stream()
                 .map(this::build)
                 .collect(Collectors.toList());
-        return userAssetsClient.batchGrant(grantAssetsRequests);
+        return Optional.ofNullable(userAssetsClient.batchGrant(grantAssetsRequests))
+                .orElse(false);
     }
 
     private GrantAssetsRequest build(UserTaskReward userTaskReward) {
