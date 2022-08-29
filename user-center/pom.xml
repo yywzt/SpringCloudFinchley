@@ -28,6 +28,7 @@
         <framework-api.version>0.0.1-SNAPSHOT</framework-api.version>
         <hutool.version>5.8.5</hutool.version>
         <h2.version>1.4.197</h2.version>
+        <mapstruct.version>1.4.1.Final</mapstruct.version>
     </properties>
 
     <dependencyManagement>
@@ -98,6 +99,17 @@
                 <artifactId>h2</artifactId>
                 <scope>test</scope>
                 <version>${h2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

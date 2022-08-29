@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -32,7 +34,7 @@ public interface UserAssetsApi {
      * @param grantAssetsRequest 参数
      */
     @PostMapping(value = "/user/assets/grant")
-    Boolean grant(@RequestBody GrantAssetsRequest grantAssetsRequest);
+    Boolean grant(@Valid @RequestBody GrantAssetsRequest grantAssetsRequest);
 
     /**
      * 批量发放资产(积分、金币)
@@ -40,5 +42,5 @@ public interface UserAssetsApi {
      * @param grantAssetsRequests 参数
      */
     @PostMapping(value = "/user/assets/batchGrant")
-    Boolean batchGrant(@RequestBody List<GrantAssetsRequest> grantAssetsRequests);
+    Boolean batchGrant(@RequestBody @NotEmpty(message = "参数为空") List<@Valid GrantAssetsRequest> grantAssetsRequests);
 }
