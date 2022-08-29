@@ -36,4 +36,7 @@ public class UserGoldCoinRecordService {
         userGoldCoinRecordMapper.insertSelective(userGoldCoinRecord);
     }
 
+    public boolean exists(String transactionNo) {
+        return userGoldCoinRecordMapper.exists(transactionNo);
+    }
 }
