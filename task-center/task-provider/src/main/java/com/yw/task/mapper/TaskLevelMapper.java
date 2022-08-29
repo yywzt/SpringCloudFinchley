@@ -13,6 +13,12 @@ import java.util.List;
  */
 public interface TaskLevelMapper extends Mapper<TaskLevel> {
 
+    /**
+     * 查询任务等级
+     *
+     * @param taskId 任务ID
+     * @return 任务等级
+     */
     @Select(value = "select * from task_level where task_id = #{taskId}")
     List<TaskLevel> list(@Param("taskId") Long taskId);
 }

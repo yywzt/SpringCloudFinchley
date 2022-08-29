@@ -17,8 +17,22 @@ public interface UserGoldCoinRecordStruct {
 
     UserGoldCoinRecordStruct INSTANCE = Mappers.getMapper(UserGoldCoinRecordStruct.class);
 
+    /**
+     * UserGoldCoinRecordDTO -> UserGoldCoinRecord
+     *
+     * @param userGoldCoinRecordDTO {@link UserGoldCoinRecordDTO}
+     * @return {@link UserGoldCoinRecord}
+     */
     UserGoldCoinRecord convert(UserGoldCoinRecordDTO userGoldCoinRecordDTO);
 
+    /**
+     * GrantAssetsRequest -> UserGoldCoinRecordDTO
+     *
+     * @param grantAssetsRequest   {@link GrantAssetsRequest}
+     * @param newGoldCoins         变更后的金币数
+     * @param assetsChangeTypeEnum {@link AssetsChangeTypeEnum}
+     * @return {@link UserGoldCoinRecordDTO}
+     */
     @Mapping(source = "newGoldCoins", target = "balance")
     @Mapping(source = "grantAssetsRequest.goldCoins", target = "goldCoins")
     @Mapping(source = "grantAssetsRequest.serialNumber", target = "transactionNo")

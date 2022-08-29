@@ -14,5 +14,11 @@ public interface UserAssetsStruct {
 
     UserAssetsStruct INSTANCE = Mappers.getMapper(UserAssetsStruct.class);
 
+    /**
+     * UserAssets -> UserAssetsVO
+     *
+     * @param userAssets {@link UserAssets}
+     * @return {@link UserAssetsVO}
+     */
     UserAssetsVO convert(UserAssets userAssets);
 }

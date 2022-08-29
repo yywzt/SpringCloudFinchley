@@ -10,6 +10,12 @@ import tk.mybatis.mapper.common.Mapper;
  */
 public interface UserGoldCoinRecordMapper extends Mapper<UserGoldCoinRecord> {
 
+    /**
+     * 根据流水号判断是否存在
+     *
+     * @param transactionNo 流水号
+     * @return true:存在 false:不存在
+     */
     @Select(value = "select exists(select id from user_gold_coin_record where transaction_no = #{transactionNo})")
     boolean exists(String transactionNo);
 }

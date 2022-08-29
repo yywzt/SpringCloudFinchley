@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import tk.mybatis.spring.annotation.MapperScan;
 
+/**
+ * @author yanzhitao@xiaomalixing.com
+ */
 @MapperScan(value = {"com.yw.user.mapper"})
 @EnableDiscoveryClient
 @SpringBootApplication

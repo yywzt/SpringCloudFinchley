@@ -20,13 +20,40 @@ public interface TaskStruct {
 
     TaskStruct INSTANCE = Mappers.getMapper(TaskStruct.class);
 
+    /**
+     * Task -> TaskDTO
+     *
+     * @param task {@link Task}
+     * @return {@link TaskDTO}
+     */
+
     @Mapping(source = "cycleType", target = "cycleType")
     TaskDTO convert(Task task);
 
+    /**
+     * List<Task> -> List<TaskDTO>
+     *
+     * @param task {@link Task}
+     * @return {@link TaskDTO}
+     */
+
     List<TaskDTO> convert(List<Task> task);
+
+    /**
+     * TaskListResponse -> TaskDetailsResponse
+     *
+     * @param taskListResponse {@link TaskListResponse}
+     * @return {@link TaskDetailsResponse}
+     */
 
     TaskDetailsResponse convert(TaskListResponse taskListResponse);
 
+    /**
+     * 任务周期类型枚举映射
+     *
+     * @param code 任务周期类型
+     * @return 任务周期类型枚举
+     */
     default CycleTypeEnum customConvert(Integer code) {
         return CycleTypeEnum.findByCode(code);
     }

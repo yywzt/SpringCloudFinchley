@@ -17,8 +17,22 @@ public interface UserScoreRecordStruct {
 
     UserScoreRecordStruct INSTANCE = Mappers.getMapper(UserScoreRecordStruct.class);
 
+    /**
+     * UserScoreRecordDTO -> UserScoreRecord
+     *
+     * @param userScoreRecord {@link UserScoreRecordDTO}
+     * @return {@link UserScoreRecord}
+     */
     UserScoreRecord convert(UserScoreRecordDTO userScoreRecord);
 
+    /**
+     * GrantAssetsRequest -> UserScoreRecordDTO
+     *
+     * @param grantAssetsRequest   {@link GrantAssetsRequest}
+     * @param newScore             变更后的积分数
+     * @param assetsChangeTypeEnum {@link AssetsChangeTypeEnum}
+     * @return {@link UserScoreRecordDTO}
+     */
     @Mapping(source = "newScore", target = "balance")
     @Mapping(source = "grantAssetsRequest.score", target = "score")
     @Mapping(source = "grantAssetsRequest.serialNumber", target = "transactionNo")

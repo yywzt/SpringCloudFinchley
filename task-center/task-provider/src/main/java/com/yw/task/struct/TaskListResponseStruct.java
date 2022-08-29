@@ -19,6 +19,14 @@ public interface TaskListResponseStruct {
 
     TaskListResponseStruct INSTANCE = Mappers.getMapper(TaskListResponseStruct.class);
 
+    /**
+     * TaskDTO + UserTaskDTO + List<TaskLevelResponse> -> TaskListResponse
+     *
+     * @param task               {@link TaskListResponse}
+     * @param userTaskDTO        {@link TaskListResponse}
+     * @param taskLevelResponses {@link TaskListResponse}
+     * @return {@link TaskListResponse}
+     */
     @Mapping(source = "task.id", target = "id")
     @Mapping(source = "userTaskDTO.taskStatus.status", target = "taskStatus")
     @Mapping(source = "userTaskDTO.taskStatus.name", target = "taskStatusName")

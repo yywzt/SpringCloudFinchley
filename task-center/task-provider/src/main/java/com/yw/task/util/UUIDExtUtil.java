@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * 19位UUID生成工具类
  *
- * @author yzt
+ * @author yanzhitao@xiaomalixing.com
  */
 public class UUIDExtUtil {
     static final char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8',
@@ -18,6 +18,15 @@ public class UUIDExtUtil {
             'Z'};
 
     static final Map<Character, Integer> DIGIT_MAP = new HashMap<>();
+
+    /**
+     * 十进制
+     */
+    public static final int DECIMAL_SYSTEM_SYSTEM_OF_NUMERATION = 10;
+
+    public static final char ZERO_CHAR = '0';
+    public static final char MINUS_SIGN_CHAR = '-';
+    public static final char PLUS_SIGN_CHAR = '+';
 
     static {
         for (int i = 0; i < DIGITS.length; i++) {
@@ -67,15 +76,15 @@ public class UUIDExtUtil {
     /**
      * 将长整型数值转换为指定的进制数（最大支持62进制，字母数字已经用尽）
      *
-     * @param i     长整型数值
-     * @param radix 进制
+     * @param i                  长整型数值
+     * @param systemOfNumeration 进制
      * @return 对应进制数
      */
-    private static String toString(long i, int radix) {
-        if (radix < MIN_RADIX || radix > MAX_RADIX) {
-            radix = 10;
+    private static String toString(long i, int systemOfNumeration) {
+        if (systemOfNumeration < MIN_RADIX || systemOfNumeration > MAX_RADIX) {
+            systemOfNumeration = DECIMAL_SYSTEM_SYSTEM_OF_NUMERATION;
         }
-        if (radix == 10) {
+        if (systemOfNumeration == DECIMAL_SYSTEM_SYSTEM_OF_NUMERATION) {
             return Long.toString(i);
         }
 
@@ -89,14 +98,14 @@ public class UUIDExtUtil {
             i = -i;
         }
 
-        while (i <= -radix) {
-            buf[charPos--] = DIGITS[(int) (-(i % radix))];
-            i = i / radix;
+        while (i <= -systemOfNumeration) {
+            buf[charPos--] = DIGITS[(int) (-(i % systemOfNumeration))];
+            i = i / systemOfNumeration;
         }
         buf[charPos] = DIGITS[(int) (-i)];
 
         if (negative) {
-            buf[--charPos] = '-';
+            buf[--charPos] = MINUS_SIGN_CHAR;
         }
 
         return new String(buf, charPos, (size - charPos));
@@ -137,11 +146,11 @@ public class UUIDExtUtil {
 
         if (len > 0) {
             char firstChar = s.charAt(0);
-            if (firstChar < '0') {
-                if (firstChar == '-') {
+            if (firstChar < ZERO_CHAR) {
+                if (firstChar == MINUS_SIGN_CHAR) {
                     negative = true;
                     limit = Long.MIN_VALUE;
-                } else if (firstChar != '+') {
+                } else if (firstChar != PLUS_SIGN_CHAR) {
                     throw forInputString(s);
                 }
 

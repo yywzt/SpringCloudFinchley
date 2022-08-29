@@ -32,6 +32,7 @@ public interface UserAssetsApi {
      * 发放资产(积分、金币)
      *
      * @param grantAssetsRequest 参数
+     * @return 发放状态(false代表发放失败, 需要业务方进行重试)
      */
     @PostMapping(value = "/user/assets/grant")
     Boolean grant(@Valid @RequestBody GrantAssetsRequest grantAssetsRequest);
@@ -40,6 +41,7 @@ public interface UserAssetsApi {
      * 批量发放资产(积分、金币)
      *
      * @param grantAssetsRequests 参数
+     * @return 发放状态(false代表发放失败, 需要业务方进行重试)
      */
     @PostMapping(value = "/user/assets/batchGrant")
     Boolean batchGrant(@RequestBody @NotEmpty(message = "参数为空") List<@Valid GrantAssetsRequest> grantAssetsRequests);

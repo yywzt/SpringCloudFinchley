@@ -16,7 +16,19 @@ public interface TaskLevelStruct {
 
     TaskLevelStruct INSTANCE = Mappers.getMapper(TaskLevelStruct.class);
 
+    /**
+     * TaskLevel -> TaskLevelDTO
+     *
+     * @param taskLevel {@link TaskLevel}
+     * @return {@link TaskLevelDTO}
+     */
     TaskLevelDTO convert(TaskLevel taskLevel);
 
+    /**
+     * List<TaskLevel> -> List<TaskLevelDTO>
+     *
+     * @param taskLevels {@link TaskLevel}
+     * @return {@link TaskLevelDTO}
+     */
     List<TaskLevelDTO> convert(List<TaskLevel> taskLevels);
 }

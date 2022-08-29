@@ -13,6 +13,12 @@ import java.util.List;
  */
 public interface UserMapper extends Mapper<User> {
 
+    /**
+     * 获取所有有效用户
+     *
+     * @param enableStatus {@link com.yyw.api.enums.EnableStatusEnum}
+     * @return 用户集合
+     */
     @Select(value = "select * from user where enable_status = #{enableStatus}")
     List<User> list(@Param("enableStatus") Integer enableStatus);
 }

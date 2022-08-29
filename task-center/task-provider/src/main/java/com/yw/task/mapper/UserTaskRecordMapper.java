@@ -11,5 +11,10 @@ import java.util.List;
  * @date 2022/8/22 11:16
  */
 public interface UserTaskRecordMapper extends Mapper<UserTaskRecord> {
+    /**
+     * 批量保存用户任务完成记录
+     *
+     * @param userTaskRecords 用户任务完成记录
+     */
     void batchInsert(@Param("userTaskRecords") List<UserTaskRecord> userTaskRecords);
 }
