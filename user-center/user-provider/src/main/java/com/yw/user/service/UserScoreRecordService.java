@@ -27,6 +27,9 @@ public class UserScoreRecordService {
 
     @Transactional(rollbackFor = Exception.class)
     public void add(UserScoreRecordDTO userScoreRecordDTO) {
+        if (userScoreRecordDTO.getScore() <= 0) {
+            return;
+        }
         UserScoreRecord userScoreRecord = UserScoreRecordStruct.INSTANCE.convert(userScoreRecordDTO);
         save(userScoreRecord);
     }

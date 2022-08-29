@@ -27,6 +27,9 @@ public class UserGoldCoinRecordService {
 
     @Transactional(rollbackFor = Exception.class)
     public void add(UserGoldCoinRecordDTO userGoldCoinRecordDTO) {
+        if (userGoldCoinRecordDTO.getGoldCoins() <= 0) {
+            return;
+        }
         UserGoldCoinRecord userGoldCoinRecord = UserGoldCoinRecordStruct.INSTANCE.convert(userGoldCoinRecordDTO);
         save(userGoldCoinRecord);
     }
