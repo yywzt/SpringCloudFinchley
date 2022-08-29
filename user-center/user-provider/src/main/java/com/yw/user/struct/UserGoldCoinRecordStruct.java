@@ -19,9 +19,9 @@ public interface UserGoldCoinRecordStruct {
 
     UserGoldCoinRecord convert(UserGoldCoinRecordDTO userGoldCoinRecordDTO);
 
-    @Mapping(source = "newGoldCoin", target = "balance")
-    @Mapping(source = "grantAssetsRequest.goldCoin", target = "goldCoin")
+    @Mapping(source = "newGoldCoins", target = "balance")
+    @Mapping(source = "grantAssetsRequest.goldCoins", target = "goldCoins")
     @Mapping(source = "grantAssetsRequest.serialNumber", target = "transactionNo")
     @Mapping(source = "assetsChangeTypeEnum.type", target = "type")
-    UserGoldCoinRecordDTO convert(GrantAssetsRequest grantAssetsRequest, long newGoldCoin, AssetsChangeTypeEnum assetsChangeTypeEnum);
+    UserGoldCoinRecordDTO convert(GrantAssetsRequest grantAssetsRequest, long newGoldCoins, AssetsChangeTypeEnum assetsChangeTypeEnum);
 }

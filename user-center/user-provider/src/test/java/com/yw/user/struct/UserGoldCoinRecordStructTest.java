@@ -20,7 +20,7 @@ class UserGoldCoinRecordStructTest {
         UserGoldCoinRecordDTO userGoldCoinRecordDTO = UserGoldCoinRecordDTO.builder()
                 .userId(1L)
                 .balance(100L)
-                .goldCoin(10L)
+                .goldCoins(10L)
                 .memo("赠予10金币")
                 .transactionNo("10000001")
                 .type(AssetsChangeTypeEnum.IN.getType())
@@ -30,7 +30,7 @@ class UserGoldCoinRecordStructTest {
         assertNotNull(userGoldCoinRecord);
         assertEquals(userGoldCoinRecordDTO.getUserId(), userGoldCoinRecord.getUserId());
         assertEquals(userGoldCoinRecordDTO.getBalance(), userGoldCoinRecord.getBalance());
-        assertEquals(userGoldCoinRecordDTO.getGoldCoin(), userGoldCoinRecord.getGoldCoin());
+        assertEquals(userGoldCoinRecordDTO.getGoldCoins(), userGoldCoinRecord.getGoldCoins());
         assertEquals(userGoldCoinRecordDTO.getMemo(), userGoldCoinRecord.getMemo());
         assertEquals(userGoldCoinRecordDTO.getTransactionNo(), userGoldCoinRecord.getTransactionNo());
         assertEquals(userGoldCoinRecordDTO.getType(), userGoldCoinRecord.getType());
@@ -41,18 +41,18 @@ class UserGoldCoinRecordStructTest {
         GrantAssetsRequest grantAssetsRequest = new GrantAssetsRequest();
         grantAssetsRequest.setUserId(1L);
         grantAssetsRequest.setScore(10L);
-        grantAssetsRequest.setGoldCoin(10L);
+        grantAssetsRequest.setGoldCoins(10L);
         grantAssetsRequest.setSerialNumber("10000001");
         grantAssetsRequest.setMemo("赠予10积分,10金币");
 
-        Long newGoldCoin = 100L;
+        Long newGoldCoins = 100L;
         AssetsChangeTypeEnum assetsChangeTypeEnum = AssetsChangeTypeEnum.IN;
-        UserGoldCoinRecordDTO userGoldCoinRecordDTO = UserGoldCoinRecordStruct.INSTANCE.convert(grantAssetsRequest, newGoldCoin, assetsChangeTypeEnum);
+        UserGoldCoinRecordDTO userGoldCoinRecordDTO = UserGoldCoinRecordStruct.INSTANCE.convert(grantAssetsRequest, newGoldCoins, assetsChangeTypeEnum);
 
         assertNotNull(userGoldCoinRecordDTO);
         assertEquals(grantAssetsRequest.getUserId(), userGoldCoinRecordDTO.getUserId());
-        assertEquals(newGoldCoin, userGoldCoinRecordDTO.getBalance());
-        assertEquals(grantAssetsRequest.getGoldCoin(), userGoldCoinRecordDTO.getGoldCoin());
+        assertEquals(newGoldCoins, userGoldCoinRecordDTO.getBalance());
+        assertEquals(grantAssetsRequest.getGoldCoins(), userGoldCoinRecordDTO.getGoldCoins());
         assertEquals(grantAssetsRequest.getMemo(), userGoldCoinRecordDTO.getMemo());
         assertEquals(grantAssetsRequest.getSerialNumber(), userGoldCoinRecordDTO.getTransactionNo());
         assertEquals(assetsChangeTypeEnum.getType(), userGoldCoinRecordDTO.getType());

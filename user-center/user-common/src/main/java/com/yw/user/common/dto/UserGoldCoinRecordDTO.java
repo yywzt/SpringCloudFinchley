@@ -24,7 +24,7 @@ public class UserGoldCoinRecordDTO {
     /**
      * 变更积分
      */
-    private Long goldCoin;
+    private Long goldCoins;
     /**
      * 备注
      */

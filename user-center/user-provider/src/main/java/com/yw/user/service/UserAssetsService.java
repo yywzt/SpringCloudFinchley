@@ -63,7 +63,7 @@ public class UserAssetsService {
     @Transactional(rollbackFor = Exception.class)
     public void doGrant(GrantAssetsRequest grantAssetsRequest, UserAssets userAssets) {
         long newScore = userAssets.getScore() + grantAssetsRequest.getScore();
-        long newGoldCoins = userAssets.getGoldCoins() + grantAssetsRequest.getGoldCoin();
+        long newGoldCoins = userAssets.getGoldCoins() + grantAssetsRequest.getGoldCoins();
 
         addUserScoreRecord(grantAssetsRequest, newScore);
         addGoldCoinRecord(grantAssetsRequest, newGoldCoins);
@@ -75,13 +75,13 @@ public class UserAssetsService {
         userScoreRecordService.add(userScoreRecordDTO);
     }
 
-    private void addGoldCoinRecord(GrantAssetsRequest grantAssetsRequest, long newGoldCoin) {
-        UserGoldCoinRecordDTO userGoldCoinRecordDTO = UserGoldCoinRecordStruct.INSTANCE.convert(grantAssetsRequest, newGoldCoin, AssetsChangeTypeEnum.IN);
+    private void addGoldCoinRecord(GrantAssetsRequest grantAssetsRequest, long newGoldCoins) {
+        UserGoldCoinRecordDTO userGoldCoinRecordDTO = UserGoldCoinRecordStruct.INSTANCE.convert(grantAssetsRequest, newGoldCoins, AssetsChangeTypeEnum.IN);
         userGoldCoinRecordService.add(userGoldCoinRecordDTO);
     }
 
-    private void updateUserAssets(Long userId, UserAssets userAssets, long newScore, long newGoldCoin) {
-        userassetsMapper.changeScoreAndGoldCoin(userId, newScore, newGoldCoin, userAssets.getModifyDate());
+    private void updateUserAssets(Long userId, UserAssets userAssets, long newScore, long newGoldCoins) {
+        userassetsMapper.changeScoreAndGoldCoin(userId, newScore, newGoldCoins, userAssets.getModifyDate());
     }
 
     @Transactional(rollbackFor = Exception.class)

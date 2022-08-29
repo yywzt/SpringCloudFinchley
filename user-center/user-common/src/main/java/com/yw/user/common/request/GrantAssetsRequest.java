@@ -21,7 +21,7 @@ public class GrantAssetsRequest {
     private Long score;
 
     @NotNull(message = "金币不能为空")
-    private Long goldCoin;
+    private Long goldCoins;
 
     @NotBlank(message = "流水号不能为空")
     private String serialNumber;

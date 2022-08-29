@@ -22,7 +22,7 @@ CREATE TABLE `user_gold_coin_record`
     `id`             BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
     `user_id`        BIGINT       NOT NULL COMMENT '用户ID',
     `balance`        BIGINT       NOT NULL COMMENT '余额',
-    `gold_coin`      BIGINT       NOT NULL COMMENT '变更金币',
+    `gold_coins`      BIGINT       NOT NULL COMMENT '变更金币',
     `memo`           varchar(255) NOT NULL COMMENT '备注',
     `transaction_no` varchar(255) NOT NULL COMMENT '流水号',
     `type`           int          NOT NULL COMMENT '收入/支出',

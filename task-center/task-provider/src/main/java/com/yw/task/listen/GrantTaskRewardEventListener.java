@@ -70,7 +70,7 @@ public class GrantTaskRewardEventListener {
                 .mapToLong(UserTaskRewardContent::getValue)
                 .findFirst()
                 .orElse(0L);
-        Long goldCoin = userTaskRewardContents.stream()
+        Long goldCoins = userTaskRewardContents.stream()
                 .filter(rc -> rc.getType().equals(TaskRewardTypeEnum.GOLD_COIN.getType()))
                 .mapToLong(UserTaskRewardContent::getValue)
                 .findFirst()
@@ -80,7 +80,7 @@ public class GrantTaskRewardEventListener {
         GrantAssetsRequest grantAssetsRequest = new GrantAssetsRequest();
         grantAssetsRequest.setUserId(userTaskReward.getUserId());
         grantAssetsRequest.setScore(score);
-        grantAssetsRequest.setGoldCoin(goldCoin);
+        grantAssetsRequest.setGoldCoins(goldCoins);
         grantAssetsRequest.setSerialNumber(serialNumber);
         grantAssetsRequest.setMemo(userTaskReward.getMemo());
         return grantAssetsRequest;

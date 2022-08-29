@@ -34,7 +34,7 @@ public class UserGoldCoinRecord {
     /**
      * 变更金币
      */
-    private Long goldCoin;
+    private Long goldCoins;
     /**
      * 备注
      */

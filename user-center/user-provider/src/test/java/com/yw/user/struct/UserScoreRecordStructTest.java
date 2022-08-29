@@ -40,7 +40,7 @@ class UserScoreRecordStructTest {
         GrantAssetsRequest grantAssetsRequest = new GrantAssetsRequest();
         grantAssetsRequest.setUserId(1L);
         grantAssetsRequest.setScore(10L);
-        grantAssetsRequest.setGoldCoin(10L);
+        grantAssetsRequest.setGoldCoins(10L);
         grantAssetsRequest.setSerialNumber("10000001");
         grantAssetsRequest.setMemo("赠予10积分,10金币");
 
