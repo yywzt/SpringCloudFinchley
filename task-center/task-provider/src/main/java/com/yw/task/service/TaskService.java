@@ -6,6 +6,7 @@ import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.TaskLevelDTO;
 import com.yw.task.common.dto.user.UserTaskDTO;
 import com.yw.task.common.enums.TaskResponseCode;
+import com.yw.task.common.enums.TaskStatusEnum;
 import com.yw.task.common.model.Task;
 import com.yw.task.common.request.TaskDetailsRequest;
 import com.yw.task.common.request.TaskListRequest;
@@ -14,6 +15,7 @@ import com.yw.task.common.response.TaskLevelResponse;
 import com.yw.task.common.response.TaskListResponse;
 import com.yw.task.mapper.TaskMapper;
 import com.yw.task.service.user.UserTaskService;
+import com.yw.task.struct.TaskLevelResponseStruct;
 import com.yw.task.struct.TaskListResponseStruct;
 import com.yw.task.struct.TaskStruct;
 import com.yw.task.util.PageUtil;
@@ -25,7 +27,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -43,8 +44,7 @@ public class TaskService {
     private TaskLevelService taskLevelService;
 
     public TaskDTO get(Long id) {
-        Optional<Task> taskOptional = taskMapper.get(id, EnableStatusEnum.ENABLE_STATUS.getCode());
-        Task task = taskOptional
+        Task task = taskMapper.get(id, EnableStatusEnum.ENABLE_STATUS.getCode())
                 .orElseThrow(() -> new BusinessException(TaskResponseCode.TASK_NOT_EXIST));
         return TaskStruct.INSTANCE.convert(task);
     }
@@ -56,8 +56,7 @@ public class TaskService {
     }
 
     public TaskDTO getByEventId(String eventId) {
-        Optional<Task> taskOptional = taskMapper.findByEventId(eventId, EnableStatusEnum.ENABLE_STATUS.getCode());
-        Task task = taskOptional
+        Task task = taskMapper.findByEventId(eventId, EnableStatusEnum.ENABLE_STATUS.getCode())
                 .orElseThrow(() -> new BusinessException(TaskResponseCode.TASK_NOT_EXIST));
         return TaskStruct.INSTANCE.convert(task);
     }
@@ -65,6 +64,7 @@ public class TaskService {
     public PageInfoVO<TaskListResponse> list(TaskListRequest taskListRequest) {
         PageInfoVO<Task> taskPageInfo = page(taskListRequest.getClassificationId(), taskListRequest.getPage(), taskListRequest.getSize());
         List<TaskDTO> taskList = TaskStruct.INSTANCE.convert(taskPageInfo.getList());
+
         List<TaskListResponse> taskListResponses = taskList.stream()
                 .map(task -> buildTaskListResponse(taskListRequest.getUserId(), task))
                 .collect(Collectors.toList());
@@ -75,9 +75,32 @@ public class TaskService {
         List<TaskLevelDTO> taskLevelList = taskLevelService.list(task.getId());
         UserTaskDTO userTaskDTO = userTaskService.get(userId, task);
         List<TaskLevelResponse> taskLevelResponses = taskLevelList.stream()
-                .map(taskLevel -> new TaskLevelResponse(taskLevel, userTaskDTO))
+                .map(taskLevel -> {
+                    TaskStatusEnum taskStatusEnum = userTaskLevelTaskStatus(taskLevel.getLevel(), userTaskDTO);
+                    return TaskLevelResponseStruct.INSTANCE.convert(taskLevel, userTaskDTO, taskStatusEnum);
+                })
                 .collect(Collectors.toList());
         return TaskListResponseStruct.INSTANCE.convert(task, userTaskDTO, taskLevelResponses);
+    }
+
+    /**
+     * 当前等级前的为已完成，之后的为未开始
+     *
+     * @param level       任务等级
+     * @param userTaskDTO 用户任务进度
+     * @return 用户任务等级进度
+     */
+    private TaskStatusEnum userTaskLevelTaskStatus(@NonNull Integer level, @NonNull UserTaskDTO userTaskDTO) {
+        if (level.equals(userTaskDTO.getCurrentLevel())) {
+            return userTaskDTO.getTaskStatus();
+        }
+        if (level < userTaskDTO.getCurrentLevel()) {
+            return TaskStatusEnum.FINISHED;
+        }
+        if (level > userTaskDTO.getCurrentLevel()) {
+            return TaskStatusEnum.NO_STARTED;
+        }
+        return TaskStatusEnum.UN_FINISHED;
     }
 
     public TaskDetailsResponse details(TaskDetailsRequest taskDetailsRequest) {
