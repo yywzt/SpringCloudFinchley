@@ -42,7 +42,7 @@ class UserGoldCoinRecordStructTest {
         grantAssetsRequest.setUserId(1L);
         grantAssetsRequest.setScore(10L);
         grantAssetsRequest.setGoldCoins(10L);
-        grantAssetsRequest.setSerialNumber("10000001");
+        grantAssetsRequest.setTransactionNo("10000001");
         grantAssetsRequest.setMemo("赠予10积分,10金币");
 
         Long newGoldCoins = 100L;
@@ -54,7 +54,7 @@ class UserGoldCoinRecordStructTest {
         assertEquals(newGoldCoins, userGoldCoinRecordDTO.getBalance());
         assertEquals(grantAssetsRequest.getGoldCoins(), userGoldCoinRecordDTO.getGoldCoins());
         assertEquals(grantAssetsRequest.getMemo(), userGoldCoinRecordDTO.getMemo());
-        assertEquals(grantAssetsRequest.getSerialNumber(), userGoldCoinRecordDTO.getTransactionNo());
+        assertEquals(grantAssetsRequest.getTransactionNo(), userGoldCoinRecordDTO.getTransactionNo());
         assertEquals(assetsChangeTypeEnum.getType(), userGoldCoinRecordDTO.getType());
     }
 }

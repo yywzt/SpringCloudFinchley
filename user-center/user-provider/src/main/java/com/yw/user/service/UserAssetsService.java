@@ -59,8 +59,8 @@ public class UserAssetsService {
     }
 
     private boolean exists(GrantAssetsRequest grantAssetsRequest) {
-        return userScoreRecordService.exists(grantAssetsRequest.getSerialNumber())
-                || userGoldCoinRecordService.exists(grantAssetsRequest.getSerialNumber());
+        return userScoreRecordService.exists(grantAssetsRequest.getTransactionNo())
+                || userGoldCoinRecordService.exists(grantAssetsRequest.getTransactionNo());
     }
 
     @Transactional(rollbackFor = Exception.class)

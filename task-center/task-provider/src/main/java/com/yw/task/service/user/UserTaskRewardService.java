@@ -69,7 +69,7 @@ public class UserTaskRewardService {
         userTaskReward.setLevel(taskRewardDTO.getLevel());
         userTaskReward.setRewardContent(rewardContent);
         userTaskReward.setGrantStatus(GrantStatusEnum.AWAIT_GRANT.getStatus());
-        userTaskReward.setSerialNumber(UUIDExtUtil.uuid());
+        userTaskReward.setTransactionNo(UUIDExtUtil.uuid());
         userTaskReward.setMemo(task.getClassificationName() + ": " + task.getTitle());
         return userTaskReward;
     }

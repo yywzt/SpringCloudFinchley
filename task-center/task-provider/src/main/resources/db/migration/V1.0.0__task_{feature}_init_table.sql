@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `user_task_reward`
     `level`          INT                            NOT NULL COMMENT '任务等级',
     `reward_content` text                           NOT NULL COMMENT '奖励数据',
     `grant_status`   INT                            NOT NULL COMMENT '发放状态',
-    `serial_number`  VARCHAR(20)                    NOT NULL COMMENT '流水号',
+    `transaction_no` VARCHAR(20)                    NOT NULL COMMENT '流水号',
     `memo`           VARCHAR(255)                   NOT NULL COMMENT '备注',
     `create_date`    DATETIME(6)                    NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
     `modify_date`    DATETIME(6)                    NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) comment '更新时间',

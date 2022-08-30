@@ -35,7 +35,7 @@ public interface UserScoreRecordStruct {
      */
     @Mapping(source = "newScore", target = "balance")
     @Mapping(source = "grantAssetsRequest.score", target = "score")
-    @Mapping(source = "grantAssetsRequest.serialNumber", target = "transactionNo")
+    @Mapping(source = "grantAssetsRequest.transactionNo", target = "transactionNo")
     @Mapping(source = "assetsChangeTypeEnum.type", target = "type")
     UserScoreRecordDTO convert(GrantAssetsRequest grantAssetsRequest, Long newScore, AssetsChangeTypeEnum assetsChangeTypeEnum);
 }

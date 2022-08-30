@@ -24,7 +24,7 @@ public class GrantAssetsRequest {
     private Long goldCoins;
 
     @NotBlank(message = "流水号不能为空")
-    private String serialNumber;
+    private String transactionNo;
 
     @NotBlank(message = "备注不能为空")
     private String memo;

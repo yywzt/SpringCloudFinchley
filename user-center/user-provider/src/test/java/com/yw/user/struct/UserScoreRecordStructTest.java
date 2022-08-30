@@ -41,7 +41,7 @@ class UserScoreRecordStructTest {
         grantAssetsRequest.setUserId(1L);
         grantAssetsRequest.setScore(10L);
         grantAssetsRequest.setGoldCoins(10L);
-        grantAssetsRequest.setSerialNumber("10000001");
+        grantAssetsRequest.setTransactionNo("10000001");
         grantAssetsRequest.setMemo("赠予10积分,10金币");
 
         Long newScore = 100L;
@@ -53,7 +53,7 @@ class UserScoreRecordStructTest {
         assertEquals(newScore, userScoreRecordDTO.getBalance());
         assertEquals(grantAssetsRequest.getScore(), userScoreRecordDTO.getScore());
         assertEquals(grantAssetsRequest.getMemo(), userScoreRecordDTO.getMemo());
-        assertEquals(grantAssetsRequest.getSerialNumber(), userScoreRecordDTO.getTransactionNo());
+        assertEquals(grantAssetsRequest.getTransactionNo(), userScoreRecordDTO.getTransactionNo());
         assertEquals(assetsChangeTypeEnum.getType(), userScoreRecordDTO.getType());
     }
 }

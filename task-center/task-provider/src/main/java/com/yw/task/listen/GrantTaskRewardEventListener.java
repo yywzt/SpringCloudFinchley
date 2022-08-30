@@ -75,13 +75,13 @@ public class GrantTaskRewardEventListener {
                 .mapToLong(UserTaskRewardContent::getValue)
                 .findFirst()
                 .orElse(0L);
-        String serialNumber = userTaskReward.getSerialNumber();
+        String transactionNo = userTaskReward.getTransactionNo();
 
         GrantAssetsRequest grantAssetsRequest = new GrantAssetsRequest();
         grantAssetsRequest.setUserId(userTaskReward.getUserId());
         grantAssetsRequest.setScore(score);
         grantAssetsRequest.setGoldCoins(goldCoins);
-        grantAssetsRequest.setSerialNumber(serialNumber);
+        grantAssetsRequest.setTransactionNo(transactionNo);
         grantAssetsRequest.setMemo(userTaskReward.getMemo());
         return grantAssetsRequest;
     }

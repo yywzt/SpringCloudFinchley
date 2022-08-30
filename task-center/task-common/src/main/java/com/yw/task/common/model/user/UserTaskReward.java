@@ -48,7 +48,7 @@ public class UserTaskReward {
     /**
      * 流水号
      */
-    private String serialNumber;
+    private String transactionNo;
     /**
      * 备注
      */

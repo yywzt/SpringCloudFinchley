@@ -3,12 +3,12 @@
 <mapper namespace="com.yw.task.mapper.user.UserTaskRewardMapper">
 
     <insert id="batchSave" useGeneratedKeys="true" keyProperty="id" parameterType="com.yw.task.common.model.user.UserTaskReward">
-        INSERT INTO `user_task_reward`(`task_id`, `user_id`, `level`,`reward_content`, `grant_status`, `serial_number`,
+        INSERT INTO `user_task_reward`(`task_id`, `user_id`, `level`,`reward_content`, `grant_status`, `transaction_no`,
         `memo`)
         VALUES
         <foreach collection="userTaskRewards" item="userTaskReward" separator="," open="(" close=")">
             #{userTaskReward.taskId},#{userTaskReward.userId},#{userTaskReward.level},#{userTaskReward.rewardContent}
-            ,#{userTaskReward.grantStatus},#{userTaskReward.serialNumber},#{userTaskReward.memo}
+            ,#{userTaskReward.grantStatus},#{userTaskReward.transactionNo},#{userTaskReward.memo}
         </foreach>
     </insert>
     <update id="updateGrantStatus">
