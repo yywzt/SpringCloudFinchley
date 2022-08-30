@@ -6,5 +6,9 @@ package com.yw.user.common.constant;
  */
 public class Constant {
 
+    private Constant() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static final String USER_PACKAGE_NAME = "com.yw.user";
 }

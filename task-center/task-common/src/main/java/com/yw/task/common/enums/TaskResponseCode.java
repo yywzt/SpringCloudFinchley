@@ -31,12 +31,12 @@ public enum TaskResponseCode implements AppCode {
     TASK_LEVEL_ERROR("task-20002", "任务等级信息异常"),
     TASK_REWARD_TYPE_ERROR("task-20003", "任务奖励类型异常");
 
-    private String code;
-    private String message;
+    private final String code;
+    private final String message;
 
-    private TaskResponseCode(String code, String message) {
-        this.setCode(code);
-        this.setMessage(message);
+    TaskResponseCode(String code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
     @Override
@@ -48,15 +48,8 @@ public enum TaskResponseCode implements AppCode {
         return this.message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getCode() {
         return this.code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 }

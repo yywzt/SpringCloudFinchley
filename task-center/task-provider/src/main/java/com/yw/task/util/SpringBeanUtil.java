@@ -20,9 +20,13 @@ public class SpringBeanUtil implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        setAppContext(applicationContext);
+        logger.info("init applicationContext success======================");
+    }
+
+    public static void setAppContext(ApplicationContext applicationContext) {
         if (SpringBeanUtil.applicationContext == null) {
             SpringBeanUtil.applicationContext = applicationContext;
-            logger.info("init applicationContext success======================");
         }
     }
 

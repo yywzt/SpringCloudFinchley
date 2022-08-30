@@ -29,12 +29,12 @@ public enum UserResponseCode implements AppCode {
     USER_NOT_EXIST("user-10100", "用户不存在"),
     ASSETS_CHANGE_TYPE_ERROR("user-10200", "用户资产变更类型异常");
 
-    private String code;
-    private String message;
+    private final String code;
+    private final String message;
 
     UserResponseCode(String code, String message) {
-        this.setCode(code);
-        this.setMessage(message);
+        this.code = code;
+        this.message = message;
     }
 
     @Override
@@ -46,15 +46,8 @@ public enum UserResponseCode implements AppCode {
         return this.message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getCode() {
         return this.code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 }

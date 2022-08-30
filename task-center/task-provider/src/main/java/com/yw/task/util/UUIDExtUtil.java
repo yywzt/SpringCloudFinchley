@@ -10,6 +10,11 @@ import java.util.UUID;
  * @author yanzhitao@xiaomalixing.com
  */
 public class UUIDExtUtil {
+
+    private UUIDExtUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
     static final char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8',
             '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
@@ -111,75 +116,4 @@ public class UUIDExtUtil {
         return new String(buf, charPos, (size - charPos));
     }
 
-    static NumberFormatException forInputString(String s) {
-        return new NumberFormatException("For input string: \"" + s + "\"");
-    }
-
-    /**
-     * 将字符串转换为长整型数字
-     *
-     * @param s     数字字符串
-     * @param radix 进制数
-     * @return 长整型数字
-     */
-    private static long toNumber(String s, int radix) {
-        if (s == null) {
-            throw new NumberFormatException("null");
-        }
-
-        if (radix < MIN_RADIX) {
-            throw new NumberFormatException("radix " + radix
-                    + " less than Numbers.MIN_RADIX");
-        }
-        if (radix > MAX_RADIX) {
-            throw new NumberFormatException("radix " + radix
-                    + " greater than Numbers.MAX_RADIX");
-        }
-
-        long result = 0;
-        boolean negative = false;
-        int i = 0;
-        int len = s.length();
-        long limit = -Long.MAX_VALUE;
-        long multmin;
-        Integer digit;
-
-        if (len > 0) {
-            char firstChar = s.charAt(0);
-            if (firstChar < ZERO_CHAR) {
-                if (firstChar == MINUS_SIGN_CHAR) {
-                    negative = true;
-                    limit = Long.MIN_VALUE;
-                } else if (firstChar != PLUS_SIGN_CHAR) {
-                    throw forInputString(s);
-                }
-
-                if (len == 1) {
-                    throw forInputString(s);
-                }
-                i++;
-            }
-            multmin = limit / radix;
-            while (i < len) {
-                digit = DIGIT_MAP.get(s.charAt(i++));
-                if (digit == null) {
-                    throw forInputString(s);
-                }
-                if (digit < 0) {
-                    throw forInputString(s);
-                }
-                if (result < multmin) {
-                    throw forInputString(s);
-                }
-                result *= radix;
-                if (result < limit + digit) {
-                    throw forInputString(s);
-                }
-                result -= digit;
-            }
-        } else {
-            throw forInputString(s);
-        }
-        return negative ? result : -result;
-    }
 }

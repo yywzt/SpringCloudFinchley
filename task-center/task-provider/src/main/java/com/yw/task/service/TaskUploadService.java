@@ -3,7 +3,6 @@ package com.yw.task.service;
 import com.yw.task.common.dto.TaskDTO;
 import com.yw.task.common.dto.TaskLevelDTO;
 import com.yw.task.common.dto.user.UserTaskDTO;
-import com.yw.task.common.model.user.UserTask;
 import com.yw.task.common.request.TaskUploadRequest;
 import com.yw.task.event.TaskFinishedEvent;
 import com.yw.task.service.user.UserTaskService;
