@@ -26,6 +26,7 @@
         <mapper-spring-boot-starter.version>4.2.1</mapper-spring-boot-starter.version>
         <pagehelper-spring-boot-starter.version>1.4.3</pagehelper-spring-boot-starter.version>
         <framework-api.version>0.0.1-SNAPSHOT</framework-api.version>
+        <framework-util.version>0.0.1-SNAPSHOT</framework-util.version>
         <user-sdk.version>0.0.1-SNAPSHOT</user-sdk.version>
         <hutool.version>5.8.5</hutool.version>
         <h2.version>1.4.197</h2.version>
@@ -40,6 +41,11 @@
                 <groupId>com.yyw</groupId>
                 <artifactId>framework-api</artifactId>
                 <version>${framework-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yyw</groupId>
+                <artifactId>framework-util</artifactId>
+                <version>${framework-util.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.yw</groupId>

@@ -71,3 +71,6 @@ feign:
       default:
         connectTimeout: 2000
         readTimeout: 2000
+idWorker:
+  workerId: 1
+  dataCenterId: 1
