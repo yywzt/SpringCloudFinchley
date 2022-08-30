@@ -9,7 +9,7 @@ import com.yw.task.event.GrantTaskRewardEvent;
 import com.yw.task.mapper.user.UserTaskRewardMapper;
 import com.yw.task.service.TaskLevelRewardService;
 import com.yw.task.util.JsonUtil;
-import com.yw.task.util.UUIDExtUtil;
+import com.yyw.framework.util.IdWorkerUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -35,6 +35,8 @@ public class UserTaskRewardService {
     private JsonUtil jsonUtil;
     @Resource
     private ApplicationContext applicationContext;
+    @Resource
+    private IdWorkerUtil idWorkerUtil;
 
 
     public void batchReward(Long userId, TaskDTO task, Set<Integer> levels) {
@@ -69,7 +71,7 @@ public class UserTaskRewardService {
         userTaskReward.setLevel(taskRewardDTO.getLevel());
         userTaskReward.setRewardContent(rewardContent);
         userTaskReward.setGrantStatus(GrantStatusEnum.AWAIT_GRANT.getStatus());
-        userTaskReward.setTransactionNo(UUIDExtUtil.uuid());
+        userTaskReward.setTransactionNo(String.valueOf(idWorkerUtil.nextId()));
         userTaskReward.setMemo(task.getClassificationName() + ": " + task.getTitle());
         return userTaskReward;
     }
