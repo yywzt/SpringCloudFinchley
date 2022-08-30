@@ -49,10 +49,9 @@ public class UserAssetsService {
     }
 
     public void grant(GrantAssetsRequest grantAssetsRequest) {
-        if (grantAssetsRequest.getScore() <= 0 && grantAssetsRequest.getGoldCoins() <= 0) {
-            return;
-        }
-        if (exists(grantAssetsRequest)) {
+        boolean scoreAndGoldCoinError = grantAssetsRequest.getScore() <= 0
+                && grantAssetsRequest.getGoldCoins() <= 0;
+        if (scoreAndGoldCoinError || exists(grantAssetsRequest)) {
             return;
         }
         UserAssets userAssets = get(grantAssetsRequest.getUserId());
